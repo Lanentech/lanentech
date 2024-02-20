@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: build/images/php/Dockerfile.dev
+    container_name: app
+    depends_on:
+      - db
+    image: php
+    networks:
+      application:
+    restart: always
+    volumes:
+      - .:/home/lanentech
+
+  db:
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    image: mysql:8.0
+    networks:
+      application:
+    ports:
+      - "3306:3306"
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: build/images/nginx/Dockerfile.dev
+    container_name: web
+    image: nginx
+    networks:
+      application:
+    ports:
+      - "8090:80"
+    restart: always
+
+networks:
+  application:
