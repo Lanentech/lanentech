@@ -1,6 +1,8 @@
 .bash_history
 .composer
 .idea
+.php-cs-fixer.cache
+.phpcs-cache
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -11,3 +13,9 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+.phpunit.cache/*
+###< phpunit/phpunit ###
