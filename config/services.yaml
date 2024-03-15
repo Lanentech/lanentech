@@ -16,3 +16,8 @@ services:
 
   App\Repository\UserRepository: ~
   App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
+
+  App\EventListener\LoginSubscriber:
+    tags:
+      - name: kernel.event_subscriber
+        dispatcher: security.event_dispatcher.main

@@ -13,6 +13,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+/**
+ * @extends ServiceEntityRepository<User>
+ */
 class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
     use CanPersistAndFlush;

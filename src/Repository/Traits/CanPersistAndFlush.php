@@ -17,7 +17,7 @@ trait CanPersistAndFlush
                 sprintf(
                     "Are you sure you're using this trait within a Repository that extends '%s'?",
                     ServiceEntityRepository::class,
-                )
+                ),
             );
         }
 
@@ -31,7 +31,7 @@ trait CanPersistAndFlush
                 sprintf(
                     "Are you sure you're using this trait within a Repository that extends '%s'?",
                     ServiceEntityRepository::class,
-                )
+                ),
             );
         }
 
