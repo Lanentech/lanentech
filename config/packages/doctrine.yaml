@@ -3,6 +3,13 @@ doctrine:
     url: '%env(resolve:DATABASE_URL)%'
     profiling_collect_backtrace: '%kernel.debug%'
     use_savepoints: true
+    types:
+      # The following are needed, as Doctrine seemingly ignores Carbon when comparing types of properties.
+      # When you try to update the schema using bin/console d:s:u, it will recursively try to update them incorrectly.
+      datetime_immutable: \Carbon\Doctrine\CarbonImmutableType
+      datetime: \Carbon\Doctrine\CarbonType
+      carbon_immutable: \Carbon\Doctrine\CarbonImmutableType
+      carbon: \Carbon\Doctrine\CarbonType
   orm:
     auto_generate_proxy_classes: true
     enable_lazy_ghost_objects: true
