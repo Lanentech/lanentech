@@ -58,6 +58,19 @@ else
 	$(PREFIX) bin/console doctrine:database:create --if-not-exists;
 endif
 
+docker-build:
+	docker-compose up -d --build --remove-orphans;
+
+docker-down:
+	docker-compose down;
+
+docker-restart:
+	make docker-down;
+	make docker-up;
+
+docker-up:
+	make docker-build;
+
 rebuild:
 	@{ \
   	read -p "Are you sure you want to rebuild your dev and test databases? This cannot be undone! [y/n] " answer \
@@ -84,11 +97,11 @@ reload:
 	make clear-cache env=test;
 
 setup:
+	make docker-up;
 	make composer-install;
 	make create-databases;
-	make migrate;
-	make seed;
-
-setup-test:
 	make create-databases env=test;
+	make migrate;
 	make migrate env=test;
+	make seed;
+	make seed env=test;
