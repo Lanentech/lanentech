@@ -4,11 +4,6 @@ FROM docker.io/php:8.3.0-fpm
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# Add new User Group and User (so we’re not running as root in container).
-RUN groupadd -g 1000 default-lanentech-user-group
-RUN useradd -u 1000 --home /home/lanentech --create-home --shell /bin/bash --no-user-group default-lanentech-user
-RUN usermod -g default-lanentech-user-group default-lanentech-user
-
 # Install dependencies.
 RUN apt-get update && apt-get install -y \
     nano \
@@ -32,14 +27,21 @@ RUN docker-php-ext-install -j$(nproc) \
     gd \
     pdo_mysql
 
-# Copy necessary config files into container.
-COPY build/config/php/php.ini /usr/local/etc/php/php.ini
-COPY build/config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-
 # Install xDebug for local debugging.
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
+# Set the working directory when shelling into the container
 WORKDIR /home/lanentech
+
+# Add new User Group and User (so we’re not running as root in container).
+RUN groupadd -g 1000 default-lanentech-user-group
+RUN useradd -u 1000 --home /home/lanentech --create-home --shell /bin/bash --no-user-group default-lanentech-user
+RUN usermod -g default-lanentech-user-group default-lanentech-user
+
+# Update files to belong to newly created user
+RUN chown -R default-lanentech-user:default-lanentech-user-group /home/lanentech
+
+# Change user when shelling into the container
 USER default-lanentech-user
 
 CMD ["php-fpm"]
