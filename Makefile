@@ -59,10 +59,10 @@ else
 endif
 
 docker-build:
-	docker-compose up -d --build --remove-orphans;
+	docker compose up -d --build --remove-orphans;
 
 docker-down:
-	docker-compose down;
+	docker compose down;
 
 docker-restart:
 	make docker-down;

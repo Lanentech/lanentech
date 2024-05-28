@@ -1,10 +1,8 @@
 FROM docker.io/nginx:1.19.2-alpine
 
-# Add new User Group and User (so we’re not running as root in container).
-RUN addgroup -g 1000 default-lanentech-user
-RUN adduser -u 1000 -G default-lanentech-user -h /home/lanentech -D default-lanentech-user
+RUN addgroup -g 1000 project-user
+RUN adduser -u 1000 -G project-user -h /home/lanentech -D project-user
 
-# Copy necessary config files into container.
 COPY build/config/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY build/config/nginx/conf.d /etc/nginx/conf.d
 COPY public/index.php /home/lanentech/public/

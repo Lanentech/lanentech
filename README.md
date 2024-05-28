@@ -2,7 +2,19 @@
 
 The website application for the Lanentech Ltd business.
 
-_NOTE: This application has been built on a Linux machine and is untested on a Windows or macOS machine._
+_NOTE: This application has been developed on a Linux machine and is untested on a Windows or macOS machine._
+
+### PREREQUISITES
+
+- This project uses Docker, and therefore you will have to docker installed.
+
+
+- The project makes use of the Make GNU command, so you will need to install this if you haven't got access to it. This 
+  comes installed on Linux and macOS out of the box.
+
+
+- This project uses ports 3306 and 8090. If you have something bound to these ports already, you will experience
+  port clashes and will need to resolve them, before building this project.
 
 ### INITIAL SETUP
 

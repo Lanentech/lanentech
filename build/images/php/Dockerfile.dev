@@ -4,7 +4,10 @@ FROM docker.io/php:8.3.0-fpm
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# Install dependencies.
+RUN groupadd -g 1000 project-user-group
+RUN useradd -u 1000 --home /home/lanentech --create-home --shell /bin/bash --no-user-group project-user
+RUN usermod -g project-user-group project-user
+
 RUN apt-get update && apt-get install -y \
     nano \
     curl \
@@ -16,10 +19,10 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libzip-dev
 
-# Remove unnecessary package lists to reduce the image size.
+# Remove unnecessary package lists to reduce the image size
 RUN rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions.
+# Install PHP extensions
 RUN docker-php-ext-install -j$(nproc) \
     bcmath \
     intl \
@@ -27,21 +30,13 @@ RUN docker-php-ext-install -j$(nproc) \
     gd \
     pdo_mysql
 
-# Install xDebug for local debugging.
+COPY build/config/php/php.ini /usr/local/etc/php/php.ini
+COPY build/config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
-# Set the working directory when shelling into the container
 WORKDIR /home/lanentech
 
-# Add new User Group and User (so we’re not running as root in container).
-RUN groupadd -g 1000 default-lanentech-user-group
-RUN useradd -u 1000 --home /home/lanentech --create-home --shell /bin/bash --no-user-group default-lanentech-user
-RUN usermod -g default-lanentech-user-group default-lanentech-user
-
-# Update files to belong to newly created user
-RUN chown -R default-lanentech-user:default-lanentech-user-group /home/lanentech
-
-# Change user when shelling into the container
-USER default-lanentech-user
+USER project-user
 
 CMD ["php-fpm"]
