@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Repository\Traits\CanPersistAndFlushInterface;
+use App\Repository\Traits\SupportsBatchFetchingInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
@@ -15,7 +16,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-interface UserRepositoryInterface extends PasswordUpgraderInterface, CanPersistAndFlushInterface
+interface UserRepositoryInterface extends
+    PasswordUpgraderInterface,
+    CanPersistAndFlushInterface,
+    SupportsBatchFetchingInterface
 {
     /**
      * Creates a User object and hashes the password given. Does not persist or flush.

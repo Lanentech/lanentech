@@ -7,7 +7,7 @@ namespace App\Tests\Unit\EventListener;
 use App\Entity\User;
 use App\EventListener\LoginSubscriber;
 use App\Repository\UserRepositoryInterface;
-use App\Tests\UnitTestCase;
+use App\Tests\TestCase\UnitTestCase;
 use Carbon\CarbonImmutable;
 use Mockery as m;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;

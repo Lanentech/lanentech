@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  App\Repository\DataManagementLogRepository: ~
+
+  App\Tests\Integration\Command\DataManagement\VersionFiles\ExceptionThrowing\Version20240101010101: ~
+  App\Tests\Integration\Command\DataManagement\VersionFiles\MissingExtension\Version20240101010101: ~
+  App\Tests\Integration\Command\DataManagement\VersionFiles\Valid\Version20240101010101: ~
+
+  App\Command\DataManagement\DataManagementCommand:
+    arguments:
+      $container: '@service_container'
+      $dataManagementFileDirectory: 'tests/Integration/Command/DataManagement/VersionFiles/Valid/'

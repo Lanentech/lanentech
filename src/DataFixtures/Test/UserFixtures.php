@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures;
+namespace App\DataFixtures\Test;
 
 use App\Repository\UserRepositoryInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,22 +18,22 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-        return ['application-fixture'];
+        return ['test-fixture'];
     }
 
     public function load(ObjectManager $manager): void
     {
         $standardUser = $this->userRepository->create(
-            name: 'Standard User',
-            username: 'standard-user',
-            email: 'standard-user@lanentech.co.uk',
+            name: 'Test User',
+            username: 'test-user',
+            email: 'test-user@lanentech.co.uk',
             password: 'password',
         );
         $manager->persist($standardUser);
 
         $adminUser = $this->userRepository->create(
-            name: 'Admin User',
-            username: 'admin-user',
+            name: 'Test Admin User',
+            username: 'test-admin-user',
             email: 'admin-user@lanentech.co.uk',
             password: 'password',
         );

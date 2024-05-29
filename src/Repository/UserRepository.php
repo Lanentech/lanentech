@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Repository\Traits\CanPersistAndFlush;
+use App\Repository\Traits\SupportsBatchFetching;
 use Carbon\CarbonImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
     use CanPersistAndFlush;
+    use SupportsBatchFetching;
 
     public function __construct(
         ManagerRegistry $registry,
