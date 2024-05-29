@@ -18,14 +18,16 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $standardUser = $this->userRepository->create(
-            username: 'standard',
+            name: 'Standard User',
+            username: 'standard-user',
             email: 'standard-user@lanentech.co.uk',
             password: 'password',
         );
         $manager->persist($standardUser);
 
         $adminUser = $this->userRepository->create(
-            username: 'admin',
+            name: 'Admin User',
+            username: 'admin-user',
             email: 'admin-user@lanentech.co.uk',
             password: 'password',
         );

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'index.tab_name'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'index.page_title'|trans }}</h1>
+
+    {% if app.user %}
+        <div class="mb-3">
+            Hi {{ app.user.name }}, <a href="{{ path('app_logout') }}">{{ 'security.logout.button_label'|trans }}</a>
+        </div>
+    {% else %}
+        <div class="mb-3">
+            <a href="{{ path('app_login') }}">{{ 'security.login.form_element.label.submit_button'|trans }}</a>
+        </div>
+    {% endif %}
+{% endblock %}
+

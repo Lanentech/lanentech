@@ -25,6 +25,9 @@ else
 	$(PREFIX) bin/console cache:clear;
 endif
 
+diff:
+	$(PREFIX) bin/console doctrine:migrations:diff;
+
 # [USAGE]: make migrate || make migrate env=test
 migrate:
 ifdef env

@@ -22,7 +22,7 @@ interface UserRepositoryInterface extends PasswordUpgraderInterface, CanPersistA
      *
      * @param string[] $roles
      */
-    public function create(string $username, string $email, string $password, array $roles = []): User;
+    public function create(string $name, string $username, string $email, string $password, array $roles = []): User;
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.

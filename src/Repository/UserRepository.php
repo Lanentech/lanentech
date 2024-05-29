@@ -27,10 +27,11 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         parent::__construct($registry, User::class);
     }
 
-    public function create(string $username, string $email, string $password, array $roles = []): User
+    public function create(string $name, string $username, string $email, string $password, array $roles = []): User
     {
         $user = new User();
 
+        $user->setName($name);
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));

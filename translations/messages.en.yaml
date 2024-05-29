@@ -1,0 +1,15 @@
+index:
+  page_title: Lanentech Homepage
+  tab_name: Lanentech
+
+security:
+  login:
+    form_element:
+      label:
+        password: Password
+        submit_button: Login
+        username: Username
+    page_title: Login Page
+    tab_name: Login
+  logout:
+    button_label: Logout

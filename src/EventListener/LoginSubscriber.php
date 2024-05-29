@@ -10,10 +10,10 @@ use Carbon\CarbonImmutable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
-class LoginSubscriber implements EventSubscriberInterface
+readonly class LoginSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository,
+        private UserRepositoryInterface $userRepository,
     ) {
     }
 
