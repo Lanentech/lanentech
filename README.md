@@ -6,7 +6,7 @@ _NOTE: This application has been developed on a Linux machine and is untested on
 
 ### PREREQUISITES
 
-- This project uses Docker, and therefore you will have to docker installed.
+- This project uses Docker, and therefore you will have to docker engine and docker desktop installed.
 
 
 - The project makes use of the Make GNU command, so you will need to install this if you haven't got access to it. This 
@@ -34,3 +34,14 @@ The application also uses PHP, MySQL and NGINX.
 If you ever need to completely purge your databases (`dev` and `test`) and start from scratch, you can run
 `make rebuild`. It assumes you already have the docker containers running, will purge both `dev` and `test` databases,
 re-create them with the relevant schema and seed any fixtures available in the application.
+
+### RUNNING TESTS
+
+To run all the tests for the project, you can simply run `make run-tests`. This will run all Application, Integration
+and Unit tests.
+
+If you want to run specific test suites, you can do so using the following make commands:
+
+- `make run-application-tests`
+- `make run-integration-tests`
+- `make run-unit-tests`

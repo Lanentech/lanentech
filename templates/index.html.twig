@@ -7,7 +7,8 @@
 
     {% if app.user %}
         <div class="mb-3">
-            Hi {{ app.user.name }}, <a href="{{ path('app_logout') }}">{{ 'security.logout.button_label'|trans }}</a>
+            Hi {{ app.user.name }},
+            <a href="{{ path('app_logout') }}" class="logout-button">{{ 'security.logout.button_label'|trans }}</a>
         </div>
     {% else %}
         <div class="mb-3">

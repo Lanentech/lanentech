@@ -48,7 +48,10 @@ else
 endif
 
 run-tests:
-	$(PREFIX) bin/phpunit -c phpunit.xml.dist --testsuite=Integration,Unit
+	$(PREFIX) bin/phpunit -c phpunit.xml.dist --testsuite=Application,Integration,Unit
+
+run-application-tests:
+	$(PREFIX) bin/phpunit -c phpunit.xml.dist --testsuite=Application
 
 run-integration-tests:
 	$(PREFIX) bin/phpunit -c phpunit.xml.dist --testsuite=Integration
