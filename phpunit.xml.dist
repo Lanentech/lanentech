@@ -30,5 +30,11 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>src/DataFixtures</directory>
+            <directory>src/DataManagement</directory>
+            <directory>src/Entity</directory>
+            <directory>src/Repository</directory>
+        </exclude>
     </source>
 </phpunit>
