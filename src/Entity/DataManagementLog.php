@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\SetId;
 use App\Repository\DataManagementLogRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DataManagementLogRepository::class)]
 class DataManagementLog
 {
+    use SetId;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
