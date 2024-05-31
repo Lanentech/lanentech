@@ -15,5 +15,4 @@ use App\Repository\Traits\CanPersistAndFlushInterface;
  */
 interface DataManagementLogRepositoryInterface extends CanPersistAndFlushInterface
 {
-    public function create(string $filename): DataManagementLog;
 }

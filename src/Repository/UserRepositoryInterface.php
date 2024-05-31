@@ -22,13 +22,6 @@ interface UserRepositoryInterface extends
     SupportsBatchFetchingInterface
 {
     /**
-     * Creates a User object and hashes the password given. Does not persist or flush.
-     *
-     * @param string[] $roles
-     */
-    public function create(string $name, string $username, string $email, string $password, array $roles = []): User;
-
-    /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void;

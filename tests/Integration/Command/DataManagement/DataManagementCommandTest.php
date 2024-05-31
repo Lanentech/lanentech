@@ -6,21 +6,23 @@ namespace App\Tests\Integration\Command\DataManagement;
 
 use App\Command\DataManagement\DataManagementCommand;
 use App\DataManagement\AbstractDataManagementFile;
+use App\Factory\DataManagementLogFactory;
+use App\Factory\DataManagementLogFactoryInterface;
 use App\Repository\DataManagementLogRepository;
+use App\Repository\DataManagementLogRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use App\Tests\Integration\Command\BaseTestCommand;
 use App\Tests\Integration\Command\DataManagement\VersionFiles\Valid\Version20240101010101 as TestDataManagementFile;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DataManagementCommandTest extends BaseTestCommand
 {
     private const string VERSION_FILES_DIRECTORY = 'tests/Integration/Command/DataManagement/VersionFiles/';
 
-    private ContainerInterface $container;
-    private DataManagementLogRepository $dataManagementLogRepository;
+    private DataManagementLogRepositoryInterface $dataManagementLogRepository;
+    private DataManagementLogFactoryInterface $dataManagementLogFactory;
     private UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
@@ -29,12 +31,11 @@ class DataManagementCommandTest extends BaseTestCommand
 
         self::bootKernel();
 
-        $this->container = self::$kernel->getContainer();
+        $container = self::getContainer();
 
-        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-        $this->dataManagementLogRepository = $this->container->get(DataManagementLogRepository::class);
-
-        $this->userRepository = self::getContainer()->get(UserRepositoryInterface::class);
+        $this->dataManagementLogRepository = $container->get(DataManagementLogRepository::class);
+        $this->dataManagementLogFactory = $container->get(DataManagementLogFactory::class);
+        $this->userRepository = $container->get(UserRepositoryInterface::class);
     }
 
     private function runCommand(): CommandTester
@@ -51,14 +52,17 @@ class DataManagementCommandTest extends BaseTestCommand
 
     private function overrideCommandDataManagementDirectory(string $dataManagementFileDirectory): void
     {
+        $container = self::getContainer();
+
         $dataManagementCommand = new DataManagementCommand(
-            $this->container,
+            $container,
             $this->dataManagementLogRepository,
+            $this->dataManagementLogFactory,
             $dataManagementFileDirectory,
             ['.gitkeep'],
         );
 
-        $this->container->set(DataManagementCommand::class, $dataManagementCommand);
+        $container->set(DataManagementCommand::class, $dataManagementCommand);
     }
 
     public function testExecuteWhenNoDataManagementFileExists(): void

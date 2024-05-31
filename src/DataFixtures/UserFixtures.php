@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Repository\UserRepositoryInterface;
+use App\Factory\UserFactoryInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -12,7 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository,
+        private readonly UserFactoryInterface $userFactory,
     ) {
     }
 
@@ -23,7 +23,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $standardUser = $this->userRepository->create(
+        $standardUser = $this->userFactory->create(
             name: 'Standard User',
             username: 'standard-user',
             email: 'standard-user@lanentech.co.uk',
@@ -31,7 +31,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         );
         $manager->persist($standardUser);
 
-        $adminUser = $this->userRepository->create(
+        $adminUser = $this->userFactory->create(
             name: 'Admin User',
             username: 'admin-user',
             email: 'admin-user@lanentech.co.uk',

@@ -7,10 +7,8 @@ namespace App\Repository;
 use App\Entity\User;
 use App\Repository\Traits\CanPersistAndFlush;
 use App\Repository\Traits\SupportsBatchFetching;
-use Carbon\CarbonImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -22,31 +20,9 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
     use CanPersistAndFlush;
     use SupportsBatchFetching;
 
-    public function __construct(
-        ManagerRegistry $registry,
-        private readonly UserPasswordHasherInterface $passwordHasher,
-    ) {
-        parent::__construct($registry, User::class);
-    }
-
-    public function create(string $name, string $username, string $email, string $password, array $roles = []): User
+    public function __construct(ManagerRegistry $registry)
     {
-        $user = new User();
-
-        $user->setName($name);
-        $user->setUsername($username);
-        $user->setEmail($email);
-        $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-
-        $now = new CarbonImmutable();
-        $user->setCreatedAt($now);
-        $user->setUpdatedAt($now);
-
-        if (!empty($roles)) {
-            $user->setRoles($roles);
-        }
-
-        return $user;
+        parent::__construct($registry, User::class);
     }
 
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void

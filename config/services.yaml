@@ -17,6 +17,12 @@ services:
   App\DataManagement\:
     resource: '../src/DataManagement/'
     public: true
+    
+  App\Factory\DataManagementFactory: ~
+  App\Factory\DataManagementFactoryInterface: '@App\Factory\DataManagementFactory'
+  
+  App\Factory\UserFactory: ~
+  App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
 
   App\Repository\DataManagementLogRepository: ~
   App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'

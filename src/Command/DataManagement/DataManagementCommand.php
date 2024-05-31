@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Command\DataManagement;
 
 use App\DataManagement\AbstractDataManagementFile;
+use App\Factory\DataManagementLogFactoryInterface;
 use App\Repository\DataManagementLogRepositoryInterface;
 use App\Util\ClassHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,6 +25,7 @@ class DataManagementCommand extends Command
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly DataManagementLogRepositoryInterface $repository,
+        private readonly DataManagementLogFactoryInterface $factory,
         private readonly string $dataManagementFileDirectory,
         /** @var string[] */
         private readonly array $dataManagementFileNamesToIgnore = [],
@@ -116,7 +118,7 @@ class DataManagementCommand extends Command
 
     private function createNewDataManagementLog(string $filename): void
     {
-        $dataManagementLog = $this->repository->create($filename);
+        $dataManagementLog = $this->factory->create($filename);
 
         $this->repository->persist($dataManagementLog);
         $this->repository->flush();
