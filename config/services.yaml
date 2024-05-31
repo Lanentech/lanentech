@@ -7,6 +7,10 @@ services:
     autowire: true
     autoconfigure: true
 
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Auto-register Services within directories
+  # --------------------------------------------------------------------------------------------------------------- #
+
   App\:
     resource: '../src/'
     exclude:
@@ -17,18 +21,10 @@ services:
   App\DataManagement\:
     resource: '../src/DataManagement/'
     public: true
-    
-  App\Factory\DataManagementFactory: ~
-  App\Factory\DataManagementFactoryInterface: '@App\Factory\DataManagementFactory'
-  
-  App\Factory\UserFactory: ~
-  App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
 
-  App\Repository\DataManagementLogRepository: ~
-  App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'
-
-  App\Repository\UserRepository: ~
-  App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Command Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
 
   App\Command\DataManagement\DataManagementCommand:
     arguments:
@@ -37,7 +33,31 @@ services:
       $dataManagementFileNamesToIgnore:
         - 'AbstractDataManagementFile.php'
 
+  # --------------------------------------------------------------------------------------------------------------- #
+  # EventListener Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
   App\EventListener\LoginSubscriber:
     tags:
       - name: kernel.event_subscriber
         dispatcher: security.event_dispatcher.main
+
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Factory Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Factory\DataManagementLogFactory: ~
+  App\Factory\DataManagementLogFactoryInterface: '@App\Factory\DataManagementLogFactory'
+  
+  App\Factory\UserFactory: ~
+  App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
+
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Repository Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Repository\DataManagementLogRepository: ~
+  App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'
+
+  App\Repository\UserRepository: ~
+  App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
