@@ -46,6 +46,9 @@ services:
   # Factory Service Definitions
   # --------------------------------------------------------------------------------------------------------------- #
 
+  App\Factory\AddressFactory: ~
+  App\Factory\AddressFactoryInterface: '@App\Factory\AddressFactory'
+
   App\Factory\DataManagementLogFactory: ~
   App\Factory\DataManagementLogFactoryInterface: '@App\Factory\DataManagementLogFactory'
 
@@ -58,6 +61,9 @@ services:
   # --------------------------------------------------------------------------------------------------------------- #
   # Repository Service Definitions
   # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Repository\AddressRepository: ~
+  App\Repository\AddressRepositoryInterface: '@App\Repository\AddressRepository'
 
   App\Repository\DataManagementLogRepository: ~
   App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'

@@ -4,7 +4,21 @@ services:
     autoconfigure: true
     public: true
 
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Factory Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Factory\AddressFactory: ~
+
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Repository Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
   App\Repository\DataManagementLogRepository: ~
+
+  # --------------------------------------------------------------------------------------------------------------- #
+  # DataManagement Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
 
   App\Tests\Integration\Command\DataManagement\VersionFiles\ExceptionThrowing\Version20240101010101: ~
   App\Tests\Integration\Command\DataManagement\VersionFiles\MissingExtension\Version20240101010101: ~
