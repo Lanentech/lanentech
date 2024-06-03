@@ -48,6 +48,9 @@ services:
 
   App\Factory\DataManagementLogFactory: ~
   App\Factory\DataManagementLogFactoryInterface: '@App\Factory\DataManagementLogFactory'
+
+  App\Factory\DirectorFactory: ~
+  App\Factory\DirectorFactoryInterface: '@App\Factory\DirectorFactory'
   
   App\Factory\UserFactory: ~
   App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
@@ -58,6 +61,9 @@ services:
 
   App\Repository\DataManagementLogRepository: ~
   App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'
+  
+  App\Repository\DirectorRepository: ~
+  App\Repository\DirectorRepositoryInterface: '@App\Repository\DirectorRepository'
 
   App\Repository\UserRepository: ~
   App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'

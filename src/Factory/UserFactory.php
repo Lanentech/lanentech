@@ -20,14 +20,13 @@ readonly class UserFactory extends BaseFactory implements UserFactoryInterface
 
     public function create(string $name, string $username, string $email, string $password, array $roles = []): User
     {
-        $user = new User();
+        $now = new CarbonImmutable();
 
+        $user = new User();
         $user->setName($name);
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-
-        $now = new CarbonImmutable();
         $user->setCreatedAt($now);
         $user->setUpdatedAt($now);
 
