@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -22,32 +23,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private int $id;
 
+    #[Assert\Length(max: 180, maxMessage: 'Name cannot be more than 180 characters')]
+    #[Assert\NotBlank(message: 'Name cannot be empty')]
+    #[Assert\NotNull(message: 'Name cannot be null')]
+    #[Assert\Type('string', message: 'Name must be a string')]
     #[ORM\Column(length: 180)]
     private string $name;
 
+    #[Assert\Length(max: 180, maxMessage: 'Username cannot be more than 180 characters')]
+    #[Assert\NotBlank(message: 'Username cannot be empty')]
+    #[Assert\NotNull(message: 'Username cannot be null')]
+    #[Assert\Type('string', message: 'Username must be a string')]
     #[ORM\Column(length: 180, unique: true)]
     private string $username;
 
     /**
      * @var string[]
      */
+    #[Assert\Type('array', message: 'Roles must be an array of strings')]
     #[ORM\Column]
     private array $roles = [];
 
+    #[Assert\NotBlank(message: 'Password cannot be empty')]
+    #[Assert\NotNull(message: 'Password cannot be null')]
+    #[Assert\Type('string', message: 'Password must be a string')]
     #[ORM\Column]
     private string $password;
 
+    #[Assert\Email(message: 'Email must be a valid email address')]
+    #[Assert\Length(max: 255, maxMessage: 'Email cannot be more than 255 characters')]
+    #[Assert\NotBlank(message: 'Email cannot be empty')]
+    #[Assert\NotNull(message: 'Email cannot be null')]
+    #[Assert\Type('string', message: 'Email must be a string')]
     #[ORM\Column(length: 255)]
     private string $email;
 
+    #[Assert\DateTime(message: 'createdAt must be a valid DateTime')]
+    #[Assert\NotNull(message: 'createdAt cannot be null')]
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'created_at', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $createdAt;
 
+    #[Assert\DateTime(message: 'updatedAt must be a valid DateTime')]
+    #[Assert\NotNull(message: 'updatedAt cannot be null')]
     #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(name: 'updated_at', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $updatedAt;
 
+    #[Assert\DateTime(message: 'lastLoggedIn must be a valid DateTime')]
     #[ORM\Column(name: 'last_logged_in', type: 'carbon_immutable', nullable: true)]
     private ?DateTimeImmutable $lastLoggedIn = null;
 

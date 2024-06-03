@@ -6,6 +6,7 @@ use App\Entity\Traits\SetId;
 use App\Repository\DataManagementLogRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DataManagementLogRepository::class)]
 class DataManagementLog
@@ -17,9 +18,15 @@ class DataManagementLog
     #[ORM\Column]
     private int $id;
 
+    #[Assert\Length(max: 255, maxMessage: 'Filename cannot be more than 255 characters')]
+    #[Assert\NotBlank(message: 'Filename cannot be empty')]
+    #[Assert\NotNull(message: 'Filename cannot be null')]
+    #[Assert\Type('string', message: 'Filename must be a string')]
     #[ORM\Column(length: 255, nullable: false)]
     private string $filename;
 
+    #[Assert\DateTime(message: 'runTime must be a valid DateTime')]
+    #[Assert\NotNull(message: 'runTime cannot be null')]
     #[ORM\Column(name: 'run_time', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $runTime;
 

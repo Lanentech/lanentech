@@ -7,12 +7,15 @@ namespace App\Factory;
 use App\Entity\User;
 use Carbon\CarbonImmutable;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-readonly class UserFactory implements UserFactoryInterface
+readonly class UserFactory extends BaseFactory implements UserFactoryInterface
 {
     public function __construct(
+        ValidatorInterface $validator,
         private UserPasswordHasherInterface $passwordHasher,
     ) {
+        parent::__construct($validator);
     }
 
     public function create(string $name, string $username, string $email, string $password, array $roles = []): User
@@ -31,6 +34,8 @@ readonly class UserFactory implements UserFactoryInterface
         if (!empty($roles)) {
             $user->setRoles($roles);
         }
+
+        $this->validateObject($user);
 
         return $user;
     }
