@@ -36,6 +36,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             username: 'admin-user',
             email: 'admin-user@lanentech.co.uk',
             password: 'password',
+            roles: ['ROLE_ADMIN'],
         );
         $manager->persist($adminUser);
 
