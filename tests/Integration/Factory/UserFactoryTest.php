@@ -6,9 +6,9 @@ namespace App\Tests\Integration\Factory;
 
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\UserFactoryInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Tests\TestCase\IntegrationTestCase;
 
-class UserFactoryTest extends KernelTestCase
+class UserFactoryTest extends IntegrationTestCase
 {
     private UserFactoryInterface $sut;
 

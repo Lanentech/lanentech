@@ -6,9 +6,9 @@ namespace App\Tests\Integration\Factory;
 
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\DirectorFactoryInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Tests\TestCase\IntegrationTestCase;
 
-class DirectorFactoryTest extends KernelTestCase
+class DirectorFactoryTest extends IntegrationTestCase
 {
     private DirectorFactoryInterface $sut;
 
