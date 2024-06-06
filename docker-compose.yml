@@ -5,7 +5,8 @@ services:
       dockerfile: build/images/php/Dockerfile.dev
     container_name: app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     image: php
     networks:
       application:
@@ -17,6 +18,8 @@ services:
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
     image: mysql:8.0
     networks:
       application:

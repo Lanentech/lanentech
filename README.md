@@ -21,10 +21,6 @@ _NOTE: This application has been developed on a Linux machine and is untested on
 If you've only just cloned the repository, you will need to run `make setup`. Once this has finished, you should have
 some Docker containers up and running.
 
-_NOTE: If you receive "Connection Refused" from the database commands, please wait ~20 seconds and re-run the command.
-This can happen when the DB docker container has not yet finished building, and the `make setup` command is trying to
-create the database and update the schema, etc._
-
 ### LOCAL DEVELOPMENT ENVIRONMENT
 
 If you haven't guessed it already, the local development environment uses Docker.
