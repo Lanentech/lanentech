@@ -49,6 +49,9 @@ services:
   App\Factory\AddressFactory: ~
   App\Factory\AddressFactoryInterface: '@App\Factory\AddressFactory'
 
+  App\Factory\CompanyFactory: ~
+  App\Factory\CompanyFactoryInterface: '@App\Factory\CompanyFactory'
+
   App\Factory\DataManagementLogFactory: ~
   App\Factory\DataManagementLogFactoryInterface: '@App\Factory\DataManagementLogFactory'
 
@@ -64,6 +67,9 @@ services:
 
   App\Repository\AddressRepository: ~
   App\Repository\AddressRepositoryInterface: '@App\Repository\AddressRepository'
+
+  App\Repository\CompanyRepository: ~
+  App\Repository\CompanyRepositoryInterface: '@App\Repository\CompanyRepository'
 
   App\Repository\DataManagementLogRepository: ~
   App\Repository\DataManagementLogRepositoryInterface: '@App\Repository\DataManagementLogRepository'
