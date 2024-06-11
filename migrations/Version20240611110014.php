@@ -16,7 +16,7 @@ final class Version20240611110014 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $createSQL = <<<SQL
+        $sql = <<<SQL
             CREATE TABLE lanentech (
                 id INT AUTO_INCREMENT NOT NULL,
                 name VARCHAR(255) NOT NULL,
@@ -26,7 +26,7 @@ final class Version20240611110014 extends AbstractMigration
            ) DEFAULT CHARACTER SET utf8mb4
         SQL;
 
-        $this->addSql($createSQL);
+        $this->addSql($sql);
 
         $this->addSql('ALTER TABLE director ADD company_id INT DEFAULT NULL');
 

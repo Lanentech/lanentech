@@ -16,7 +16,7 @@ final class Version20240603160008 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('
+        $sql = <<<SQL
             CREATE TABLE director (
                 id INT AUTO_INCREMENT NOT NULL,
                 title VARCHAR(5) DEFAULT NULL,
@@ -26,8 +26,11 @@ final class Version20240603160008 extends AbstractMigration
                 mobile VARCHAR(13) DEFAULT NULL,
                 date_of_birth VARCHAR(10) DEFAULT NULL,
                 professional_title VARCHAR(255) DEFAULT NULL,
-                PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4
-            ');
+                PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4
+        SQL;
+
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void

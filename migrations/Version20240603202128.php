@@ -16,7 +16,7 @@ final class Version20240603202128 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('
+        $sql = <<<SQL
             CREATE TABLE address (
                 id INT AUTO_INCREMENT NOT NULL,
                 house_name VARCHAR(50) DEFAULT NULL,
@@ -25,8 +25,11 @@ final class Version20240603202128 extends AbstractMigration
                 town_city VARCHAR(75) NOT NULL,
                 postcode VARCHAR(7) NOT NULL,
                 country VARCHAR(3) NOT NULL,
-                PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4
-            ');
+                PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4
+        SQL;
+
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void

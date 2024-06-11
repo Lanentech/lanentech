@@ -16,13 +16,16 @@ final class Version20240529135208 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('
+        $sql = <<<SQL
             CREATE TABLE data_management_log (
                 id INT AUTO_INCREMENT NOT NULL,
                 filename VARCHAR(255) NOT NULL,
                 run_time DATETIME(6) NOT NULL,
-                PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4
-        ');
+                PRIMARY KEY(id)
+            ) DEFAULT CHARACTER SET utf8mb4
+        SQL;
+
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void

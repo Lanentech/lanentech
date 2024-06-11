@@ -16,7 +16,7 @@ final class Version20240611144816 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $createSQL = <<<SQL
+        $sql = <<<SQL
             CREATE TABLE invoice (
                 id INT AUTO_INCREMENT NOT NULL,
                 ident VARCHAR(255) NOT NULL,
@@ -28,7 +28,7 @@ final class Version20240611144816 extends AbstractMigration
             ) DEFAULT CHARACTER SET utf8mb4
         SQL;
 
-        $this->addSql($createSQL);
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void

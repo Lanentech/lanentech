@@ -16,7 +16,7 @@ final class Version20240606105910 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('
+        $sql = <<<SQL
             CREATE TABLE company (
                 id INT AUTO_INCREMENT NOT NULL,
                 name VARCHAR(255) NOT NULL,
@@ -27,7 +27,9 @@ final class Version20240606105910 extends AbstractMigration
                 UNIQUE INDEX UNIQ_4FBF094FF5B7AF75 (address_id),
                 PRIMARY KEY(id)
             ) DEFAULT CHARACTER SET utf8mb4
-        ');
+        SQL;
+
+        $this->addSql($sql);
 
         $this->addSql('
             ALTER TABLE company ADD CONSTRAINT FK_4FBF094FF5B7AF75 FOREIGN KEY (address_id) REFERENCES address (id)
