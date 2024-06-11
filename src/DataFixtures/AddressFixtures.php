@@ -23,6 +23,14 @@ class AddressFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
+        $this->createFullyPopulatedAddressFixture($manager);
+        $this->createMinimallyPopulatedAddressFixture($manager);
+
+        $manager->flush();
+    }
+
+    private function createFullyPopulatedAddressFixture(ObjectManager $manager): void
+    {
         $fullyPopulatedAddress = $this->addressFactory->create(
             houseNumber: '3',
             street: 'Primrose Lane',
@@ -31,8 +39,12 @@ class AddressFixtures extends Fixture implements FixtureGroupInterface
             country: 'GBR',
             houseName: 'Farmendale'
         );
-        $manager->persist($fullyPopulatedAddress);
 
+        $manager->persist($fullyPopulatedAddress);
+    }
+
+    private function createMinimallyPopulatedAddressFixture(ObjectManager $manager): void
+    {
         $minimalPopulatedAddress = $this->addressFactory->create(
             houseNumber: '72',
             street: 'Playground Avenue',
@@ -40,8 +52,7 @@ class AddressFixtures extends Fixture implements FixtureGroupInterface
             postcode: 'SK57NT',
             country: 'GBR',
         );
-        $manager->persist($minimalPopulatedAddress);
 
-        $manager->flush();
+        $manager->persist($minimalPopulatedAddress);
     }
 }

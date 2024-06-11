@@ -26,13 +26,13 @@ class DirectorFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $this->addFullyPopulatedDirectorFixture($manager);
-        $this->addMinimallyPopulatedDirectorFixture($manager);
+        $this->createFullyPopulatedDirectorFixture($manager);
+        $this->createMinimallyPopulatedDirectorFixture($manager);
 
         $manager->flush();
     }
 
-    private function addFullyPopulatedDirectorFixture(ObjectManager $manager): void
+    private function createFullyPopulatedDirectorFixture(ObjectManager $manager): void
     {
         $fullyPopulatedDirector = $this->directorFactory->create(
             firstName: 'Teresa',
@@ -49,7 +49,7 @@ class DirectorFixtures extends Fixture implements FixtureGroupInterface
         $this->addReference(self::FULLY_POPULATED_DIRECTOR, $fullyPopulatedDirector);
     }
 
-    private function addMinimallyPopulatedDirectorFixture(ObjectManager $manager): void
+    private function createMinimallyPopulatedDirectorFixture(ObjectManager $manager): void
     {
         $minimallyPopulatedDirector = $this->directorFactory->create(
             firstName: 'Joe',

@@ -28,6 +28,20 @@ class LanentechFixtures extends Fixture implements DependentFixtureInterface, Fi
 
     public function load(ObjectManager $manager): void
     {
+        $this->createFullyPopulatedLanentechFixture($manager);
+
+        $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            DirectorFixtures::class,
+        ];
+    }
+
+    private function createFullyPopulatedLanentechFixture(ObjectManager $manager): void
+    {
         if (!$incorporationDate = CarbonImmutable::create(year: 2023, month: 2, day: 13, hour: 9)) {
             throw new LogicException(
                 sprintf(
@@ -49,14 +63,5 @@ class LanentechFixtures extends Fixture implements DependentFixtureInterface, Fi
         );
 
         $manager->persist($lanentech);
-
-        $manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            DirectorFixtures::class,
-        ];
     }
 }

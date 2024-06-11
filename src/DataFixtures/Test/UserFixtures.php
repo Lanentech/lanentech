@@ -23,14 +23,26 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
+        $this->createTestStandardUserFixture($manager);
+        $this->createTestAdminUserFixture($manager);
+
+        $manager->flush();
+    }
+
+    private function createTestStandardUserFixture(ObjectManager $manager): void
+    {
         $standardUser = $this->userFactory->create(
             name: 'Test User',
             username: 'test-user',
             email: 'test-user@lanentech.co.uk',
             password: 'password',
         );
-        $manager->persist($standardUser);
 
+        $manager->persist($standardUser);
+    }
+
+    private function createTestAdminUserFixture(ObjectManager $manager): void
+    {
         $adminUser = $this->userFactory->create(
             name: 'Test Admin User',
             username: 'test-admin-user',
@@ -38,8 +50,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             password: 'password',
             roles: ['ROLE_ADMIN'],
         );
-        $manager->persist($adminUser);
 
-        $manager->flush();
+        $manager->persist($adminUser);
     }
 }
