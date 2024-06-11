@@ -58,6 +58,9 @@ services:
   App\Factory\DirectorFactory: ~
   App\Factory\DirectorFactoryInterface: '@App\Factory\DirectorFactory'
 
+  App\Factory\InvoiceFactory: ~
+  App\Factory\InvoiceFactoryInterface: '@App\Factory\InvoiceFactory'
+
   App\Factory\LanentechFactory: ~
   App\Factory\LanentechFactoryInterface: '@App\Factory\LanentechFactory'
   
@@ -79,6 +82,9 @@ services:
   
   App\Repository\DirectorRepository: ~
   App\Repository\DirectorRepositoryInterface: '@App\Repository\DirectorRepository'
+
+  App\Repository\InvoiceRepository: ~
+  App\Repository\InvoiceRepositoryInterface: '@App\Repository\InvoiceRepository'
 
   App\Repository\LanentechRepository: ~
   App\Repository\LanentechRepositoryInterface: '@App\Repository\LanentechRepository'
