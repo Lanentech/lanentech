@@ -3,13 +3,14 @@ PREFIX=docker exec -it app
 # -----------------------------------
 # Code Quality Commands
 # -----------------------------------
-add-void-to-tests:
-	$(PREFIX) php scripts/UpdateTestsWithVoidReturn.php;
-
 analyze-code:
+	$(PREFIX) vendor/bin/php-cs-fixer fix;
 	$(PREFIX) vendor/bin/phpcs --standard=phpcs.xml;
 	$(PREFIX) vendor/bin/phpcbf src tests;
 	$(PREFIX) vendor/bin/phpstan
+
+fix-code:
+	$(PREFIX) vendor/bin/php-cs-fixer fix;
 
 # -----------------------------------
 # Developer Helper Commands

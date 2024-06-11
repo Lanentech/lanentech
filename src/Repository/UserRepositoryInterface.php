@@ -17,8 +17,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 interface UserRepositoryInterface extends
-    PasswordUpgraderInterface,
     CanPersistAndFlushInterface,
+    PasswordUpgraderInterface,
     SupportsBatchFetchingInterface
 {
     /**

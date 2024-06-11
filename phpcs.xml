@@ -18,7 +18,6 @@
     <file>config/</file>
     <file>migrations/</file>
     <file>public/</file>
-    <file>scripts/</file>
     <file>src/</file>
     <file>tests/</file>
 </ruleset>
