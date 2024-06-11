@@ -67,6 +67,10 @@ class Director
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $professionalTitle = null;
 
+    #[Assert\Type(type: Lanentech::class, message: 'The value {{ value }} is not a valid {{ type }}.')]
+    #[ORM\ManyToOne(inversedBy: 'directors')]
+    private ?Lanentech $company = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +156,18 @@ class Director
     public function setProfessionalTitle(?string $professionalTitle): static
     {
         $this->professionalTitle = $professionalTitle;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Lanentech
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Lanentech $company): static
+    {
+        $this->company = $company;
 
         return $this;
     }

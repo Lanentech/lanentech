@@ -21,7 +21,7 @@ class DirectorFactoryTest extends IntegrationTestCase
         $this->sut = self::getContainer()->get(DirectorFactoryInterface::class);
     }
 
-    public function testOnCreateProducesValidationFailure(): void
+    public function testOnCreateProducesObjectValidationFailure(): void
     {
         $title = 'King';
         $firstName = '';

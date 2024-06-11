@@ -21,7 +21,7 @@ class DataManagementLogFactoryTest extends IntegrationTestCase
         $this->sut = self::getContainer()->get(DataManagementLogFactoryInterface::class);
     }
 
-    public function testOnCreateProducesValidationFailure(): void
+    public function testOnCreateProducesObjectValidationFailure(): void
     {
         $invalidFilename = '';
 

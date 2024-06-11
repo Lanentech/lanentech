@@ -21,7 +21,7 @@ class AddressFactoryTest extends IntegrationTestCase
         $this->sut = self::getContainer()->get(AddressFactoryInterface::class);
     }
 
-    public function testOnCreateProducesValidationFailure(): void
+    public function testOnCreateProducesObjectValidationFailure(): void
     {
         $houseNumber = '123456789123';
         $street = '';

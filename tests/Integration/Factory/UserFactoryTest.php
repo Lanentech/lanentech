@@ -21,7 +21,7 @@ class UserFactoryTest extends IntegrationTestCase
         $this->sut = self::getContainer()->get(UserFactoryInterface::class);
     }
 
-    public function testOnCreateProducesValidationFailure(): void
+    public function testOnCreateProducesObjectValidationFailure(): void
     {
         $name = '';
         $username = str_repeat('standard-user', 50);

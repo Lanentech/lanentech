@@ -57,6 +57,9 @@ services:
 
   App\Factory\DirectorFactory: ~
   App\Factory\DirectorFactoryInterface: '@App\Factory\DirectorFactory'
+
+  App\Factory\LanentechFactory: ~
+  App\Factory\LanentechFactoryInterface: '@App\Factory\LanentechFactory'
   
   App\Factory\UserFactory: ~
   App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
@@ -76,6 +79,9 @@ services:
   
   App\Repository\DirectorRepository: ~
   App\Repository\DirectorRepositoryInterface: '@App\Repository\DirectorRepository'
+
+  App\Repository\LanentechRepository: ~
+  App\Repository\LanentechRepositoryInterface: '@App\Repository\LanentechRepository'
 
   App\Repository\UserRepository: ~
   App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'

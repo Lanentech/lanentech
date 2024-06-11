@@ -22,7 +22,7 @@ class CompanyFactoryTest extends IntegrationTestCase
         $this->sut = self::getContainer()->get(CompanyFactoryInterface::class);
     }
 
-    public function testOnCreateProducesValidationFailure(): void
+    public function testOnCreateProducesObjectValidationFailure(): void
     {
         $name = '';
         $ident = str_repeat('lanentech', 200);

@@ -32,10 +32,10 @@ class DirectorFactoryTest extends UnitTestCase
 
     public function testCreate(): void
     {
-        $title = 'Mr';
-        $firstName = 'Daniel';
-        $lastName = 'Griffiths';
-        $email = 'd.griffiths@lanentechco.uk';
+        $title = 'Miss';
+        $firstName = 'Teresa';
+        $lastName = 'Green';
+        $email = 'teresa.green@lanentech.co.uk';
         $mobileNumber = '07485266955';
         $dateOfBirth = '13/03/1992';
         $professionalTitle = 'Bsc Hons';
@@ -64,10 +64,10 @@ class DirectorFactoryTest extends UnitTestCase
 
     public function testCreateFailsValidationChecks(): void
     {
-        $title = 'Mr';
+        $title = 'Miss';
         $firstName = '';
-        $lastName = 'Griffiths';
-        $email = 'd.griffiths@lanentechco.uk';
+        $lastName = 'Green';
+        $email = 'teresa.green@lanentech.co.uk';
         $mobileNumber = '07485266955';
         $dateOfBirth = '13/03/1992';
         $professionalTitle = 'Bsc Hons';
