@@ -1,16 +1,17 @@
 PREFIX=docker exec -it app
+PREFIX_WITHOUT_INTERACTIVE_TERMINAL=docker exec app
 
 # -----------------------------------
 # Code Quality Commands
 # -----------------------------------
 analyze-code:
-	$(PREFIX) vendor/bin/php-cs-fixer fix;
-	$(PREFIX) vendor/bin/phpcs --standard=phpcs.xml;
-	$(PREFIX) vendor/bin/phpcbf src tests;
-	$(PREFIX) vendor/bin/phpstan
+	$(PREFIX_WITHOUT_INTERACTIVE_TERMINAL) vendor/bin/php-cs-fixer fix;
+	$(PREFIX_WITHOUT_INTERACTIVE_TERMINAL) vendor/bin/phpcs --standard=phpcs.xml;
+	$(PREFIX_WITHOUT_INTERACTIVE_TERMINAL) vendor/bin/phpcbf src tests;
+	$(PREFIX_WITHOUT_INTERACTIVE_TERMINAL) vendor/bin/phpstan
 
 fix-code:
-	$(PREFIX) vendor/bin/php-cs-fixer fix;
+	$(PREFIX_WITHOUT_INTERACTIVE_TERMINAL) vendor/bin/php-cs-fixer fix;
 
 # -----------------------------------
 # Developer Helper Commands
