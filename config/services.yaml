@@ -57,6 +57,9 @@ services:
 
   App\Factory\DirectorFactory: ~
   App\Factory\DirectorFactoryInterface: '@App\Factory\DirectorFactory'
+  
+  App\Factory\ExpenseCategoryFactory: ~
+  App\Factory\ExpenseCategoryFactoryInterface: '@App\Factory\ExpenseCategoryFactory'
 
   App\Factory\InvoiceFactory: ~
   App\Factory\InvoiceFactoryInterface: '@App\Factory\InvoiceFactory'
@@ -82,6 +85,9 @@ services:
   
   App\Repository\DirectorRepository: ~
   App\Repository\DirectorRepositoryInterface: '@App\Repository\DirectorRepository'
+  
+  App\Repository\ExpenseCategoryRepository: ~
+  App\Repository\ExpenseCategoryRepositoryInterface: '@App\Repository\ExpenseCategoryRepository'
 
   App\Repository\InvoiceRepository: ~
   App\Repository\InvoiceRepositoryInterface: '@App\Repository\InvoiceRepository'

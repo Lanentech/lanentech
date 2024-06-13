@@ -7,7 +7,7 @@ namespace App\Command\DataManagement;
 use App\DataManagement\AbstractDataManagementFile;
 use App\Factory\DataManagementLogFactoryInterface;
 use App\Repository\DataManagementLogRepositoryInterface;
-use App\Util\ClassHelper;
+use App\Util\Class\ClassHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

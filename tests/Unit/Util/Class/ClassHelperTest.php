@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Util;
+namespace App\Tests\Unit\Util\Class;
 
 use App\Tests\TestCase\UnitTestCase;
-use App\Util\ClassHelper;
+use App\Util\Class\ClassHelper;
 
 class ClassHelperTest extends UnitTestCase
 {
