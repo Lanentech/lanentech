@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseCategoryFactoryInterface;
 use App\Util\Html\HtmlCleaner;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -12,6 +13,15 @@ use Doctrine\Persistence\ObjectManager;
 
 class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
 {
+    public const string CAR_VAN_AND_TRAVEL = 'car_van_and_travel';
+    public const string CLOTHING_EXPENSES = 'clothing_expenses';
+    public const string LEGAL_AND_FINANCIAL_COSTS = 'legal_and_financial_costs';
+    public const string MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS = 'marketing_entertainment_and_subscriptions';
+    public const string OFFICE_PROPERTY_AND_EQUIPMENT = 'office_property_and_equipment';
+    public const string RESELLING_GOODS = 'reselling_goods';
+    public const string STAFF_EXPENSES = 'staff_expenses';
+    public const string TRAINING_COURSES = 'training_courses';
+
     public function __construct(
         private readonly ExpenseCategoryFactoryInterface $expenseCategoryFactory,
     ) {
@@ -98,6 +108,10 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($officePropertyAndEquipment);
+
+        if (!$this->hasReference(self::OFFICE_PROPERTY_AND_EQUIPMENT, ExpenseCategory::class)) {
+            $this->addReference(self::OFFICE_PROPERTY_AND_EQUIPMENT, $officePropertyAndEquipment);
+        }
     }
 
     private function createCarVanAndTravelExpensesExpenseCategoryFixture(ObjectManager $manager): void
@@ -141,6 +155,10 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($carVanAndTravelExpenses);
+
+        if (!$this->hasReference(self::CAR_VAN_AND_TRAVEL, ExpenseCategory::class)) {
+            $this->addReference(self::CAR_VAN_AND_TRAVEL, $carVanAndTravelExpenses);
+        }
     }
 
     private function createClothingExpensesExpenseCategoryFixture(ObjectManager $manager): void
@@ -162,6 +180,10 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($clothingExpenses);
+
+        if (!$this->hasReference(self::CLOTHING_EXPENSES, ExpenseCategory::class)) {
+            $this->addReference(self::CLOTHING_EXPENSES, $clothingExpenses);
+        }
     }
 
     private function createStaffExpensesExpenseCategoryFixture(ObjectManager $manager): void
@@ -187,6 +209,10 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($staffExpenses);
+
+        if (!$this->hasReference(self::STAFF_EXPENSES, ExpenseCategory::class)) {
+            $this->addReference(self::STAFF_EXPENSES, $staffExpenses);
+        }
     }
 
     private function createResellingGoodsExpenseCategoryFixture(ObjectManager $manager): void
@@ -212,6 +238,10 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($resellingGoods);
+
+        if (!$this->hasReference(self::RESELLING_GOODS, ExpenseCategory::class)) {
+            $this->addReference(self::RESELLING_GOODS, $resellingGoods);
+        }
     }
 
     private function createLegalAndFinancialCostsExpenseCategoryFixture(ObjectManager $manager): void
@@ -272,12 +302,16 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
             </p>
         HTML;
 
-        $financialCosts = $this->expenseCategoryFactory->create(
+        $legalAndFinancialCosts = $this->expenseCategoryFactory->create(
             name: 'Legal and financial costs',
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($financialCosts);
+        $manager->persist($legalAndFinancialCosts);
+
+        if (!$this->hasReference(self::LEGAL_AND_FINANCIAL_COSTS, ExpenseCategory::class)) {
+            $this->addReference(self::LEGAL_AND_FINANCIAL_COSTS, $legalAndFinancialCosts);
+        }
     }
 
     private function createMarketingEntertainmentAndSubscriptionsExpenseCategoryFixture(ObjectManager $manager): void
@@ -316,6 +350,13 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($marketingEntertainmentAndSubscriptions);
+
+        if (!$this->hasReference(self::MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS, ExpenseCategory::class)) {
+            $this->addReference(
+                self::MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS,
+                $marketingEntertainmentAndSubscriptions,
+            );
+        }
     }
 
     private function createTrainingCoursesExpenseCategoryFixture(ObjectManager $manager): void
@@ -342,5 +383,9 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($trainingCourses);
+
+        if (!$this->hasReference(self::TRAINING_COURSES, ExpenseCategory::class)) {
+            $this->addReference(self::TRAINING_COURSES, $trainingCourses);
+        }
     }
 }
