@@ -27,8 +27,8 @@ class DataManagementLog
     #[ORM\Column(length: 255, nullable: false)]
     private string $filename;
 
-    #[Assert\DateTime(message: 'runTime must be a valid DateTime')]
-    #[Assert\NotNull(message: 'runTime cannot be null')]
+    #[Assert\DateTime(message: 'Run Time must be a valid DateTime')]
+    #[Assert\NotNull(message: 'Run Time cannot be null')]
     #[ORM\Column(name: 'run_time', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $runTime;
 
