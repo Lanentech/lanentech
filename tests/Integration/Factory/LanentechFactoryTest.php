@@ -59,7 +59,7 @@ class LanentechFactoryTest extends IntegrationTestCase
 
         $this->expectException(EntityFactoryValidationException::class);
         $this->expectExceptionMessage('Name cannot be empty');
-        $this->expectExceptionMessage('Company Number cannot be more than 8 characters');
+        $this->expectExceptionMessage('Company Number cannot be more than 8 digits');
         $this->sut->create($name, $companyNumber, $incorporationDate, $directors);
     }
 }
