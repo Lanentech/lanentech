@@ -47,7 +47,7 @@ class Company
     #[ORM\Column(length: 255)]
     private string $type;
 
-    #[Assert\Length(max: 8, maxMessage: 'Company Number cannot be more than 8 characters')]
+    #[Assert\Length(max: 8, maxMessage: 'Company Number cannot be more than 8 digits')]
     #[Assert\NotBlank(message: 'Company Number cannot be empty')]
     #[Assert\NotNull(message: 'Company Number cannot be null')]
     #[Assert\Type('integer', message: 'Company Number must be an integer')]

@@ -39,7 +39,7 @@ class CompanyFactoryTest extends IntegrationTestCase
         $this->expectExceptionMessage('Name cannot be empty');
         $this->expectExceptionMessage('Ident cannot be more than 255 characters');
         $this->expectExceptionMessage('Type invalid. Must be one of:');
-        $this->expectExceptionMessage('Company Number cannot be more than 8 characters');
+        $this->expectExceptionMessage('Company Number cannot be more than 8 digits');
         $this->sut->create($name, $ident, $type, $companyNumber, $address);
     }
 }
