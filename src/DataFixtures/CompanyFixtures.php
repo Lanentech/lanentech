@@ -5,12 +5,19 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Address;
+use App\Entity\Company;
 use App\Entity\Const\Company as CompanyConstants;
 use App\Factory\CompanyFactoryInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class CompanyFixtures extends AbstractFixture
 {
+    public const string AGENCY_WITH_NO_ADDRESS = 'agency_with_no_address';
+    public const string CLIENT_WITH_NO_ADDRESS = 'client_with_no_address';
+    public const string FULLY_POPULATED_AGENCY = 'fully_populated_agency';
+    public const string FULLY_POPULATED_CLIENT = 'fully_populated_client';
+    public const string FULLY_POPULATED_COMPANY = 'fully_populated_company';
+
     public function __construct(
         private readonly CompanyFactoryInterface $companyFactory,
     ) {
@@ -43,6 +50,10 @@ class CompanyFixtures extends AbstractFixture
         );
 
         $manager->persist($fullyPopulatedCompany);
+
+        if (!$this->hasReference(self::FULLY_POPULATED_COMPANY, Company::class)) {
+            $this->addReference(self::FULLY_POPULATED_COMPANY, $fullyPopulatedCompany);
+        }
     }
 
     private function createFullyPopulatedAgencyFixture(ObjectManager $manager): void
@@ -61,6 +72,10 @@ class CompanyFixtures extends AbstractFixture
         );
 
         $manager->persist($fullyPopulatedAgency);
+
+        if (!$this->hasReference(self::FULLY_POPULATED_AGENCY, Company::class)) {
+            $this->addReference(self::FULLY_POPULATED_AGENCY, $fullyPopulatedAgency);
+        }
     }
 
     private function createCompanyWithNoAddressFixture(ObjectManager $manager): void
@@ -73,6 +88,10 @@ class CompanyFixtures extends AbstractFixture
         );
 
         $manager->persist($agencyWithNoAddress);
+
+        if (!$this->hasReference(self::AGENCY_WITH_NO_ADDRESS, Company::class)) {
+            $this->addReference(self::AGENCY_WITH_NO_ADDRESS, $agencyWithNoAddress);
+        }
     }
 
     private function createFullyPopulatedClientFixture(ObjectManager $manager): void
@@ -91,6 +110,10 @@ class CompanyFixtures extends AbstractFixture
         );
 
         $manager->persist($fullyPopulatedClient);
+
+        if (!$this->hasReference(self::FULLY_POPULATED_CLIENT, Company::class)) {
+            $this->addReference(self::FULLY_POPULATED_CLIENT, $fullyPopulatedClient);
+        }
     }
 
     private function createClientWithNoAddressFixture(ObjectManager $manager): void
@@ -103,5 +126,9 @@ class CompanyFixtures extends AbstractFixture
         );
 
         $manager->persist($clientWithNoAddress);
+
+        if (!$this->hasReference(self::CLIENT_WITH_NO_ADDRESS, Company::class)) {
+            $this->addReference(self::CLIENT_WITH_NO_ADDRESS, $clientWithNoAddress);
+        }
     }
 }

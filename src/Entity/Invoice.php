@@ -6,7 +6,10 @@ namespace App\Entity;
 
 use App\Entity\Traits\SetId;
 use App\Repository\InvoiceRepository;
+use App\Validator\Constraint\Billables;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,6 +51,18 @@ class Invoice
     #[Assert\Type('string', message: 'Agency Invoice Number must be a string')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $agencyInvoiceNumber = null;
+
+    /**
+     * @var Collection<int, Billable>
+     */
+    #[Billables]
+    #[ORM\OneToMany(targetEntity: Billable::class, mappedBy: 'invoice')]
+    private Collection $billables;
+
+    public function __construct()
+    {
+        $this->billables = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -110,6 +125,36 @@ class Invoice
     public function setAgencyInvoiceNumber(?string $agencyInvoiceNumber): static
     {
         $this->agencyInvoiceNumber = $agencyInvoiceNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Billable>
+     */
+    public function getBillables(): Collection
+    {
+        return $this->billables;
+    }
+
+    public function addBillable(Billable $billable): static
+    {
+        if (!$this->billables->contains($billable)) {
+            $this->billables->add($billable);
+            $billable->setInvoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillable(Billable $billable): static
+    {
+        if ($this->billables->removeElement($billable)) {
+            // set the owning side to null (unless already changed)
+            if ($billable->getInvoice() === $this) {
+                $billable->setInvoice(null);
+            }
+        }
 
         return $this;
     }

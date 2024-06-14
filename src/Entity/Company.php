@@ -7,7 +7,10 @@ namespace App\Entity;
 use App\Entity\Const\Company as CompanyConstants;
 use App\Entity\Traits\SetId;
 use App\Repository\CompanyRepository;
+use App\Validator\Constraint\Billables;
 use App\Validator\Constraint\Slug;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -57,6 +60,18 @@ class Company
     #[Assert\Type(type: Address::class, message: 'The value {{ value }} is not a valid {{ type }}.')]
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Address $address = null;
+
+    /**
+     * @var Collection<int, Billable>
+     */
+    #[Billables]
+    #[ORM\OneToMany(targetEntity: Billable::class, mappedBy: 'client')]
+    private Collection $billables;
+
+    public function __construct()
+    {
+        $this->billables = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -119,6 +134,36 @@ class Company
     public function setAddress(?Address $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Billable>
+     */
+    public function getBillables(): Collection
+    {
+        return $this->billables;
+    }
+
+    public function addBillable(Billable $billable): static
+    {
+        if (!$this->billables->contains($billable)) {
+            $this->billables->add($billable);
+            $billable->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillable(Billable $billable): static
+    {
+        if ($this->billables->removeElement($billable)) {
+            // set the owning side to null (unless already changed)
+            if ($billable->getClient() === $this) {
+                $billable->setClient(null);
+            }
+        }
 
         return $this;
     }

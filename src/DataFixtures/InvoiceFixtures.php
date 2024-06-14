@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Invoice;
 use App\Factory\InvoiceFactoryInterface;
 use Carbon\CarbonImmutable;
 use Doctrine\Persistence\ObjectManager;
 
 class InvoiceFixtures extends AbstractFixture
 {
+    public const string FULLY_POPULATED_INVOICE = 'fully_populated_invoice';
+    public const string MINIMALLY_POPULATED_INVOICE = 'minimally_populated_invoice';
+
     public function __construct(
         private readonly InvoiceFactoryInterface $invoiceFactory,
     ) {
@@ -42,6 +46,10 @@ class InvoiceFixtures extends AbstractFixture
         );
 
         $manager->persist($fullyPopulatedInvoice);
+
+        if (!$this->hasReference(self::FULLY_POPULATED_INVOICE, Invoice::class)) {
+            $this->addReference(self::FULLY_POPULATED_INVOICE, $fullyPopulatedInvoice);
+        }
     }
 
     private function createMinimallyPopulatedInvoiceFixture(ObjectManager $manager): void
@@ -62,5 +70,9 @@ class InvoiceFixtures extends AbstractFixture
         );
 
         $manager->persist($minimallyPopulatedInvoice);
+
+        if (!$this->hasReference(self::MINIMALLY_POPULATED_INVOICE, Invoice::class)) {
+            $this->addReference(self::MINIMALLY_POPULATED_INVOICE, $minimallyPopulatedInvoice);
+        }
     }
 }

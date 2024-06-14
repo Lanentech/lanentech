@@ -48,6 +48,9 @@ services:
 
   App\Factory\AddressFactory: ~
   App\Factory\AddressFactoryInterface: '@App\Factory\AddressFactory'
+  
+  App\Factory\BillableFactory: ~
+  App\Factory\BillableFactoryInterface: '@App\Factory\BillableFactory'
 
   App\Factory\CompanyFactory: ~
   App\Factory\CompanyFactoryInterface: '@App\Factory\CompanyFactory'
@@ -82,6 +85,9 @@ services:
 
   App\Repository\AddressRepository: ~
   App\Repository\AddressRepositoryInterface: '@App\Repository\AddressRepository'
+  
+  App\Repository\BillableRepository: ~
+  App\Repository\BillableRepositoryInterface: '@App\Repository\BillableRepository'
 
   App\Repository\CompanyRepository: ~
   App\Repository\CompanyRepositoryInterface: '@App\Repository\CompanyRepository'
