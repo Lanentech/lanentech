@@ -23,7 +23,7 @@ class Lanentech
     #[ORM\Column]
     private int $id;
 
-    #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 180 characters')]
+    #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
     #[Assert\NotNull(message: 'Name cannot be null')]
     #[Assert\Type('string', message: 'Name must be a string')]
