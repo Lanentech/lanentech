@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Expense;
+use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseFactoryInterface;
 use Carbon\CarbonImmutable;
@@ -45,7 +45,7 @@ class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterfa
                 ExpenseCategoryFixtures::LEGAL_AND_FINANCIAL_COSTS,
                 ExpenseCategory::class,
             ),
-            type: Expense::TYPE_BUSINESS_COST,
+            type: ExpenseConstants::TYPE_BUSINESS_COST,
             date: $date,
             cost: 59999,
             comments: 'This is the annual fee for the company, for the accountant to submit the companies accounts',
@@ -66,7 +66,7 @@ class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterfa
                 ExpenseCategoryFixtures::TRAINING_COURSES,
                 ExpenseCategory::class,
             ),
-            type: Expense::TYPE_DIRECTORS_EXPENSE,
+            type: ExpenseConstants::TYPE_DIRECTORS_EXPENSE,
             date: $date,
             cost: 14999,
         );

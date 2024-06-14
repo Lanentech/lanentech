@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\SetId;
 use App\Repository\ExpenseCategoryRepository;
+use App\Validator\Constraint\Expenses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -38,6 +39,7 @@ class ExpenseCategory
     /**
      * @var Collection<int, Expense>
      */
+    #[Expenses]
     #[ORM\OneToMany(targetEntity: Expense::class, mappedBy: 'category')]
     private Collection $expenses;
 

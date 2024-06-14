@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\Traits\SetId;
 use App\Repository\ExpenseRepository;
 use DateTimeImmutable;
@@ -15,9 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Expense
 {
     use SetId;
-
-    public const string TYPE_BUSINESS_COST = 'Business Cost';
-    public const string TYPE_DIRECTORS_EXPENSE = 'Directors Expense';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,7 +34,7 @@ class Expense
     private ?ExpenseCategory $category = null;
 
     #[Assert\Choice(
-        choices: [self::TYPE_BUSINESS_COST, self::TYPE_DIRECTORS_EXPENSE],
+        choices: ExpenseConstants::TYPES,
         message: 'Type invalid. Must be one of: {{ choices }}',
     )]
     #[Assert\Length(max: 17, maxMessage: 'Type cannot be more than 17 characters')]

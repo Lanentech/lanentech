@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Factory;
 
+use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\Expense;
 use App\Entity\ExpenseCategory;
 use App\Exception\EntityFactoryValidationException;
@@ -54,7 +55,7 @@ class ExpenseFactoryTest extends UnitTestCase
         $expenseCategory->setDescription($expenseCategoryDescription);
 
         $description = 'Pension Contribution to Penfold for Teresa Green';
-        $type = Expense::TYPE_BUSINESS_COST;
+        $type = ExpenseConstants::TYPE_BUSINESS_COST;
         $date = CarbonImmutable::parse('2023-02-23');
         $cost = 15975;
         $comments = 'This is a comment';
@@ -94,7 +95,7 @@ class ExpenseFactoryTest extends UnitTestCase
         $expenseCategory->setDescription($expenseCategoryDescription);
 
         $description = '';
-        $type = Expense::TYPE_BUSINESS_COST;
+        $type = ExpenseConstants::TYPE_BUSINESS_COST;
         $date = CarbonImmutable::parse('2023-02-23');
         $cost = 15975;
         $comments = 'This is a comment';
