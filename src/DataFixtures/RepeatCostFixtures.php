@@ -6,21 +6,13 @@ namespace App\DataFixtures;
 
 use App\Factory\RepeatCostFactoryInterface;
 use Carbon\CarbonImmutable;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use LogicException;
 
-class RepeatCostFixtures extends Fixture implements FixtureGroupInterface
+class RepeatCostFixtures extends AbstractFixture
 {
     public function __construct(
         private readonly RepeatCostFactoryInterface $repeatCostFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function load(ObjectManager $manager): void
@@ -33,14 +25,7 @@ class RepeatCostFixtures extends Fixture implements FixtureGroupInterface
     private function createFullyPopulatedRepeatCostFixture(ObjectManager $manager): void
     {
         if (!$date = CarbonImmutable::create(year: 2023, month: 2, day: 28)) {
-            throw new LogicException(
-                sprintf(
-                    'Could not create instance of %s for %s, null return from %s',
-                    CarbonImmutable::class,
-                    'Date',
-                    'CarbonImmutable::create',
-                ),
-            );
+            $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
         $fullyPopulatedRepeatCost = $this->repeatCostFactory->create(

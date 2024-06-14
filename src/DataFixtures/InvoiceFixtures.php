@@ -6,21 +6,13 @@ namespace App\DataFixtures;
 
 use App\Factory\InvoiceFactoryInterface;
 use Carbon\CarbonImmutable;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use LogicException;
 
-class InvoiceFixtures extends Fixture implements FixtureGroupInterface
+class InvoiceFixtures extends AbstractFixture
 {
     public function __construct(
         private readonly InvoiceFactoryInterface $invoiceFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function load(ObjectManager $manager): void
@@ -34,11 +26,11 @@ class InvoiceFixtures extends Fixture implements FixtureGroupInterface
     private function createFullyPopulatedInvoiceFixture(ObjectManager $manager): void
     {
         if (!$date = CarbonImmutable::create(year: 2023, month: 2, day: 28)) {
-            $this->throwExceptionWhenDateCannotBeCreated('date');
+            $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
         if (!$paymentDueDate = CarbonImmutable::create(year: 2023, month: 3, day: 20)) {
-            $this->throwExceptionWhenDateCannotBeCreated('paymentDueDate');
+            $this->throwExceptionWhenDateCannotBeCreated('Payment Due Date');
         }
 
         $fullyPopulatedInvoice = $this->invoiceFactory->create(
@@ -55,11 +47,11 @@ class InvoiceFixtures extends Fixture implements FixtureGroupInterface
     private function createMinimallyPopulatedInvoiceFixture(ObjectManager $manager): void
     {
         if (!$date = CarbonImmutable::create(year: 2023, month: 3, day: 31)) {
-            $this->throwExceptionWhenDateCannotBeCreated('date');
+            $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
         if (!$paymentDueDate = CarbonImmutable::create(year: 2023, month: 4, day: 20)) {
-            $this->throwExceptionWhenDateCannotBeCreated('paymentDueDate');
+            $this->throwExceptionWhenDateCannotBeCreated('Payment Due Date');
         }
 
         $minimallyPopulatedInvoice = $this->invoiceFactory->create(
@@ -70,17 +62,5 @@ class InvoiceFixtures extends Fixture implements FixtureGroupInterface
         );
 
         $manager->persist($minimallyPopulatedInvoice);
-    }
-
-    private function throwExceptionWhenDateCannotBeCreated(string $key): never
-    {
-        throw new LogicException(
-            sprintf(
-                'Could not create instance of %s for %s, null return from %s',
-                CarbonImmutable::class,
-                $key,
-                'CarbonImmutable::create',
-            ),
-        );
     }
 }

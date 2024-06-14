@@ -7,20 +7,13 @@ namespace App\DataFixtures;
 use App\Entity\Address;
 use App\Entity\Const\Company as CompanyConstants;
 use App\Factory\CompanyFactoryInterface;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class CompanyFixtures extends Fixture implements FixtureGroupInterface
+class CompanyFixtures extends AbstractFixture
 {
     public function __construct(
         private readonly CompanyFactoryInterface $companyFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function load(ObjectManager $manager): void

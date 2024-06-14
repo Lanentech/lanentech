@@ -8,22 +8,14 @@ use App\Entity\Expense;
 use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseFactoryInterface;
 use Carbon\CarbonImmutable;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use LogicException;
 
-class ExpenseFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
+class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly ExpenseFactoryInterface $expenseFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function getDependencies(): array
@@ -44,7 +36,7 @@ class ExpenseFixtures extends Fixture implements DependentFixtureInterface, Fixt
     private function createFullyPopulatedExpenseFixture(ObjectManager $manager): void
     {
         if (!$date = CarbonImmutable::create(year: 2024, month: 2, day: 18, hour: 15, minute: 22, second: 52)) {
-            $this->throwExceptionWhenDateCannotBeCreated();
+            $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
         $fullyPopulatedExpense = $this->expenseFactory->create(
@@ -65,7 +57,7 @@ class ExpenseFixtures extends Fixture implements DependentFixtureInterface, Fixt
     private function createMinimallyPopulatedExpenseFixture(ObjectManager $manager): void
     {
         if (!$date = CarbonImmutable::create(year: 2024, month: 2, day: 23, hour: 11, minute: 49, second: 13)) {
-            $this->throwExceptionWhenDateCannotBeCreated();
+            $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
         $minimallyPopulatedExpense = $this->expenseFactory->create(
@@ -80,16 +72,5 @@ class ExpenseFixtures extends Fixture implements DependentFixtureInterface, Fixt
         );
 
         $manager->persist($minimallyPopulatedExpense);
-    }
-
-    private function throwExceptionWhenDateCannotBeCreated(): never
-    {
-        throw new LogicException(
-            sprintf(
-                'Could not create instance of %s for Date, null return from %s',
-                CarbonImmutable::class,
-                'CarbonImmutable::create',
-            ),
-        );
     }
 }

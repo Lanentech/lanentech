@@ -7,23 +7,15 @@ namespace App\DataFixtures;
 use App\Entity\Director;
 use App\Factory\LanentechFactoryInterface;
 use Carbon\CarbonImmutable;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use LogicException;
 
-class LanentechFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
+class LanentechFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly LanentechFactoryInterface $lanentechFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function getDependencies(): array
@@ -43,13 +35,7 @@ class LanentechFixtures extends Fixture implements DependentFixtureInterface, Fi
     private function createFullyPopulatedLanentechFixture(ObjectManager $manager): void
     {
         if (!$incorporationDate = CarbonImmutable::create(year: 2023, month: 2, day: 13, hour: 9)) {
-            throw new LogicException(
-                sprintf(
-                    'Could not create instance of %s for Incorporation date, null return from %s',
-                    CarbonImmutable::class,
-                    'CarbonImmutable::create',
-                ),
-            );
+            $this->throwExceptionWhenDateCannotBeCreated('Incorporation Date');
         }
 
         $lanentech = $this->lanentechFactory->create(

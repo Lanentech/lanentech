@@ -6,11 +6,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Director;
 use App\Factory\DirectorFactoryInterface;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class DirectorFixtures extends Fixture implements FixtureGroupInterface
+class DirectorFixtures extends AbstractFixture
 {
     public const string FULLY_POPULATED_DIRECTOR = 'fully_populated_director';
     public const string MINIMALLY_POPULATED_DIRECTOR = 'minimally_populated_director';
@@ -18,11 +16,6 @@ class DirectorFixtures extends Fixture implements FixtureGroupInterface
     public function __construct(
         private readonly DirectorFactoryInterface $directorFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function load(ObjectManager $manager): void

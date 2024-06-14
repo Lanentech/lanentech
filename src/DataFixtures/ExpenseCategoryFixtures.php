@@ -7,11 +7,9 @@ namespace App\DataFixtures;
 use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseCategoryFactoryInterface;
 use App\Util\Html\HtmlCleaner;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
+class ExpenseCategoryFixtures extends AbstractFixture
 {
     public const string CAR_VAN_AND_TRAVEL = 'car_van_and_travel';
     public const string CLOTHING_EXPENSES = 'clothing_expenses';
@@ -25,11 +23,6 @@ class ExpenseCategoryFixtures extends Fixture implements FixtureGroupInterface
     public function __construct(
         private readonly ExpenseCategoryFactoryInterface $expenseCategoryFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     /**

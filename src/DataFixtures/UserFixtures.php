@@ -5,20 +5,13 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Factory\UserFactoryInterface;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends Fixture implements FixtureGroupInterface
+class UserFixtures extends AbstractFixture
 {
     public function __construct(
         private readonly UserFactoryInterface $userFactory,
     ) {
-    }
-
-    public static function getGroups(): array
-    {
-        return ['application-fixture'];
     }
 
     public function load(ObjectManager $manager): void
