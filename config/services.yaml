@@ -69,6 +69,9 @@ services:
 
   App\Factory\LanentechFactory: ~
   App\Factory\LanentechFactoryInterface: '@App\Factory\LanentechFactory'
+
+  App\Factory\RepeatCostFactory: ~
+  App\Factory\RepeatCostFactoryInterface: '@App\Factory\RepeatCostFactory'
   
   App\Factory\UserFactory: ~
   App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
@@ -100,6 +103,9 @@ services:
 
   App\Repository\LanentechRepository: ~
   App\Repository\LanentechRepositoryInterface: '@App\Repository\LanentechRepository'
+
+  App\Repository\RepeatCostRepository: ~
+  App\Repository\RepeatCostRepositoryInterface: '@App\Repository\RepeatCostRepository'
 
   App\Repository\UserRepository: ~
   App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
