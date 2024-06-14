@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Factory;
 
 use App\Entity\Address;
+use App\Entity\Const\Company as CompanyConstants;
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\CompanyFactoryInterface;
 use App\Tests\TestCase\IntegrationTestCase;
@@ -38,7 +39,9 @@ class CompanyFactoryTest extends IntegrationTestCase
         $this->expectException(EntityFactoryValidationException::class);
         $this->expectExceptionMessage('Name cannot be empty');
         $this->expectExceptionMessage('Ident cannot be more than 255 characters');
-        $this->expectExceptionMessage('Type invalid. Must be one of:');
+        $this->expectExceptionMessage(
+            sprintf('Type invalid. Must be one of: %s', implode(',', CompanyConstants::TYPES)),
+        );
         $this->expectExceptionMessage('Company Number cannot be more than 8 digits');
         $this->sut->create($name, $ident, $type, $companyNumber, $address);
     }

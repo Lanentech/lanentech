@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Factory;
 
 use App\Entity\Address;
 use App\Entity\Company;
+use App\Entity\Const\Company as CompanyConstants;
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\CompanyFactory;
 use App\Tests\TestCase\UnitTestCase;
@@ -35,7 +36,7 @@ class CompanyFactoryTest extends UnitTestCase
     {
         $name = 'Lanentech';
         $ident = 'lanentech';
-        $type = 'Business';
+        $type = CompanyConstants::TYPE_BUSINESS;
         $companyNumber = 12345678;
         $address = (new Address())
             ->setHouseNumber('3')
@@ -60,7 +61,7 @@ class CompanyFactoryTest extends UnitTestCase
     {
         $name = '';
         $ident = 'lanentech';
-        $type = 'Business';
+        $type = CompanyConstants::TYPE_BUSINESS;
         $companyNumber = 12345678;
         $address = (new Address())
             ->setHouseNumber('3')

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Const\Director as DirectorConstants;
 use App\Entity\Traits\SetId;
 use App\Repository\DirectorRepository;
 use App\Validator\Constraint\DateOfBirth;
@@ -21,7 +22,7 @@ class Director
     private int $id;
 
     #[Assert\Choice(
-        choices: ['Mr', 'Mrs', 'Miss', 'Ms', 'Mx', 'Sir', 'Dame', 'Dr', 'Lady', 'Lord'],
+        choices: DirectorConstants::TITLES,
         message: 'Title invalid. Must be one of: {{ choices }}',
     )]
     #[Assert\Length(max: 5, maxMessage: 'Title cannot be more than 5 characters')]

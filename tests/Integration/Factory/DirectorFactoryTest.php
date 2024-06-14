@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Factory;
 
+use App\Entity\Const\Director as DirectorConstants;
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\DirectorFactoryInterface;
 use App\Tests\TestCase\IntegrationTestCase;
@@ -32,7 +33,9 @@ class DirectorFactoryTest extends IntegrationTestCase
         $professionalTitle = str_repeat('Bsc Hons', 100);
 
         $this->expectException(EntityFactoryValidationException::class);
-        $this->expectExceptionMessage('Title invalid. Must be one of');
+        $this->expectExceptionMessage(
+            sprintf('Type invalid. Must be one of: %s', implode(',', DirectorConstants::TITLES)),
+        );
         $this->expectExceptionMessage('Firstname cannot be empty');
         $this->expectExceptionMessage('Lastname cannot be empty');
         $this->expectExceptionMessage('Email cannot be more than 255 characters');

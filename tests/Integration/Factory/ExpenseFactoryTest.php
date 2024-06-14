@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Factory;
 
+use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\ExpenseCategory;
 use App\Exception\EntityFactoryValidationException;
 use App\Factory\ExpenseFactoryInterface;
@@ -52,7 +53,9 @@ class ExpenseFactoryTest extends IntegrationTestCase
 
         $this->expectException(EntityFactoryValidationException::class);
         $this->expectExceptionMessage('Description cannot be empty');
-        $this->expectExceptionMessage('Type invalid. Must be one of');
+        $this->expectExceptionMessage(
+            sprintf('Type invalid. Must be one of: %s', implode(',', ExpenseConstants::TYPES)),
+        );
         $this->expectExceptionMessage('Cost cannot be more than 10 digits');
         $this->expectExceptionMessage('Comments cannot be more than 5000 characters');
         $this->sut->create($description, $expenseCategory, $type, $date, $cost, $comments);
