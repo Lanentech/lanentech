@@ -26,18 +26,18 @@ class LanentechFixtures extends Fixture implements DependentFixtureInterface, Fi
         return ['application-fixture'];
     }
 
-    public function load(ObjectManager $manager): void
-    {
-        $this->createFullyPopulatedLanentechFixture($manager);
-
-        $manager->flush();
-    }
-
     public function getDependencies(): array
     {
         return [
             DirectorFixtures::class,
         ];
+    }
+
+    public function load(ObjectManager $manager): void
+    {
+        $this->createFullyPopulatedLanentechFixture($manager);
+
+        $manager->flush();
     }
 
     private function createFullyPopulatedLanentechFixture(ObjectManager $manager): void

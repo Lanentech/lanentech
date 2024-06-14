@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Director;
 use App\Factory\DirectorFactoryInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -46,7 +47,9 @@ class DirectorFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->persist($fullyPopulatedDirector);
 
-        $this->addReference(self::FULLY_POPULATED_DIRECTOR, $fullyPopulatedDirector);
+        if (!$this->hasReference(self::FULLY_POPULATED_DIRECTOR, Director::class)) {
+            $this->addReference(self::FULLY_POPULATED_DIRECTOR, $fullyPopulatedDirector);
+        }
     }
 
     private function createMinimallyPopulatedDirectorFixture(ObjectManager $manager): void
@@ -58,6 +61,8 @@ class DirectorFixtures extends Fixture implements FixtureGroupInterface
 
         $manager->persist($minimallyPopulatedDirector);
 
-        $this->addReference(self::MINIMALLY_POPULATED_DIRECTOR, $minimallyPopulatedDirector);
+        if (!$this->hasReference(self::MINIMALLY_POPULATED_DIRECTOR, Director::class)) {
+            $this->addReference(self::MINIMALLY_POPULATED_DIRECTOR, $minimallyPopulatedDirector);
+        }
     }
 }
