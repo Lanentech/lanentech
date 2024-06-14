@@ -10,12 +10,12 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class LanentechDirectorsValidator extends ConstraintValidator
+class DirectorsValidator extends ConstraintValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof LanentechDirectors) {
-            throw new UnexpectedTypeException($constraint, LanentechDirectors::class);
+        if (!$constraint instanceof Directors) {
+            throw new UnexpectedTypeException($constraint, Directors::class);
         }
 
         if (!$value instanceof Collection) {

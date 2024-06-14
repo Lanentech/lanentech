@@ -6,7 +6,7 @@ namespace App\Factory;
 
 use App\Entity\Director;
 use App\Entity\Lanentech;
-use App\Validator\Constraint\LanentechDirectors;
+use App\Validator\Constraint\Directors;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Symfony\Component\Validator\Constraint;
@@ -64,7 +64,7 @@ readonly class LanentechFactory extends BaseFactory implements LanentechFactoryI
         return [
             new Collection([
                 'directors' => [
-                    new LanentechDirectors(),
+                    new Directors(),
                 ],
             ]),
         ];

@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\SetId;
 use App\Repository\LanentechRepository;
-use App\Validator\Constraint\LanentechDirectors;
+use App\Validator\Constraint\Directors;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,7 +40,7 @@ class Lanentech
     /**
      * @var Collection<int, Director>
      */
-    #[LanentechDirectors]
+    #[Directors]
     #[ORM\OneToMany(targetEntity: Director::class, mappedBy: 'company')]
     private Collection $directors;
 

@@ -6,15 +6,15 @@ namespace App\Tests\Unit\Validator\Constraint;
 
 use App\Entity\Address;
 use App\Entity\Director;
-use App\Validator\Constraint\LanentechDirectors;
-use App\Validator\Constraint\LanentechDirectorsValidator;
+use App\Validator\Constraint\Directors;
+use App\Validator\Constraint\DirectorsValidator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class LanentechDirectorsValidatorTest extends ConstraintValidatorTestCase
+class DirectorsValidatorTest extends ConstraintValidatorTestCase
 {
     private function getDummyDirector(): Director
     {
@@ -30,7 +30,7 @@ class LanentechDirectorsValidatorTest extends ConstraintValidatorTestCase
 
     protected function createValidator(): ConstraintValidatorInterface
     {
-        return new LanentechDirectorsValidator();
+        return new DirectorsValidator();
     }
 
     public function testWithInvalidConstraint(): void
@@ -42,7 +42,7 @@ class LanentechDirectorsValidatorTest extends ConstraintValidatorTestCase
 
     public function testWhenValueProvidedIsNotAnArrayCollection(): void
     {
-        $this->validator->validate([$this->getDummyDirector()], new LanentechDirectors());
+        $this->validator->validate([$this->getDummyDirector()], new Directors());
 
         $this->buildViolation('Invalid "{{ key }}" value. Must be a Collection of "' . Director::class . '" objects')
             ->setParameter('{{ key }}', 'directors')
@@ -51,7 +51,7 @@ class LanentechDirectorsValidatorTest extends ConstraintValidatorTestCase
 
     public function testValueProvidedIsNotValidDirectorObject(): void
     {
-        $this->validator->validate(new ArrayCollection([new Address()]), new LanentechDirectors());
+        $this->validator->validate(new ArrayCollection([new Address()]), new Directors());
 
         $this->buildViolation('Invalid "{{ key }}" value. Must be a Collection of "' . Director::class . '" objects')
             ->setParameter('{{ key }}', 'directors')
@@ -60,7 +60,7 @@ class LanentechDirectorsValidatorTest extends ConstraintValidatorTestCase
 
     public function testValueProvidedIsValid(): void
     {
-        $this->validator->validate(new ArrayCollection([$this->getDummyDirector()]), new LanentechDirectors());
+        $this->validator->validate(new ArrayCollection([$this->getDummyDirector()]), new Directors());
 
         $this->assertNoViolation();
     }
