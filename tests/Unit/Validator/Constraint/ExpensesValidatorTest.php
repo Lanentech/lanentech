@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Validator\Constraint;
 
+use App\DataFixtures\ExpenseCategoryFixtures;
 use App\Entity\Address;
 use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\Expense;
@@ -38,7 +39,7 @@ class ExpensesValidatorTest extends ConstraintValidatorTestCase
         HTML;
 
         $expenseCategory = (new ExpenseCategory())
-            ->setName('Training courses')
+            ->setName(ExpenseCategoryFixtures::TRAINING_COURSES_NAME)
             ->setDescription($expenseCategoryDescription);
 
         return (new Expense())

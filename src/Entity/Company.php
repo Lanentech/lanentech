@@ -26,14 +26,12 @@ class Company
 
     #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
-    #[Assert\NotNull(message: 'Name cannot be null')]
     #[Assert\Type('string', message: 'Name must be a string')]
     #[ORM\Column(length: 255)]
     private string $name;
 
     #[Assert\Length(max: 255, maxMessage: 'Ident cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Ident cannot be empty')]
-    #[Assert\NotNull(message: 'Ident cannot be null')]
     #[Assert\Type('string', message: 'Ident must be a string')]
     #[Slug]
     #[ORM\Column(length: 255)]
@@ -45,14 +43,12 @@ class Company
     )]
     #[Assert\Length(max: 255, maxMessage: 'Type cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Type cannot be empty')]
-    #[Assert\NotNull(message: 'Type cannot be null')]
     #[Assert\Type('string', message: 'Type must be a string')]
     #[ORM\Column(length: 255)]
     private string $type;
 
     #[Assert\Length(max: 8, maxMessage: 'Company Number cannot be more than 8 digits')]
     #[Assert\NotBlank(message: 'Company Number cannot be empty')]
-    #[Assert\NotNull(message: 'Company Number cannot be null')]
     #[Assert\Type('integer', message: 'Company Number must be an integer')]
     #[ORM\Column(length: 8)]
     private int $companyNumber;

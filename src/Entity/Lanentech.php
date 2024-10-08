@@ -25,14 +25,12 @@ class Lanentech
 
     #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
-    #[Assert\NotNull(message: 'Name cannot be null')]
     #[Assert\Type('string', message: 'Name must be a string')]
     #[ORM\Column(length: 255)]
     private string $name;
 
     #[Assert\Length(max: 8, maxMessage: 'Company Number cannot be more than 8 digits')]
     #[Assert\NotBlank(message: 'Company Number cannot be empty')]
-    #[Assert\NotNull(message: 'Company Number cannot be null')]
     #[Assert\Type('integer', message: 'Company Number must be an integer')]
     #[ORM\Column(length: 8)]
     private int $companyNumber;

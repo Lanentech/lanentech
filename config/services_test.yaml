@@ -16,3 +16,6 @@ services:
     arguments:
       $container: '@service_container'
       $dataManagementFileDirectory: 'tests/Integration/Command/DataManagement/VersionFiles/Valid/'
+
+  security.csrf.token_manager:
+    class: App\Tests\Common\Csrf\CsrfTokenManagerMock

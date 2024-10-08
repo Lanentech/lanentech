@@ -11,6 +11,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
+    public const string ADMIN_USER_EMAIL = 'admin-user@lanentech.co.uk';
+    public const string ADMIN_USER_USERNAME = 'test-admin-user';
+    public const string NON_ADMIN_USER_EMAIL = 'test-user@lanentech.co.uk';
+    public const string NON_ADMIN_USER_USERNAME = 'test-user';
+
     public function __construct(
         private readonly UserFactoryInterface $userFactory,
     ) {
@@ -33,8 +38,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     {
         $standardUser = $this->userFactory->create(
             name: 'Test User',
-            username: 'test-user',
-            email: 'test-user@lanentech.co.uk',
+            username: self::NON_ADMIN_USER_USERNAME,
+            email: self::NON_ADMIN_USER_EMAIL,
             password: 'password',
         );
 
@@ -45,8 +50,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     {
         $adminUser = $this->userFactory->create(
             name: 'Test Admin User',
-            username: 'test-admin-user',
-            email: 'admin-user@lanentech.co.uk',
+            username: self::ADMIN_USER_USERNAME,
+            email: self::ADMIN_USER_EMAIL,
             password: 'password',
             roles: ['ROLE_ADMIN'],
         );

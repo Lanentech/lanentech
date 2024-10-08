@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Expense;
+use App\Repository\Traits\CanDeleteInterface;
 use App\Repository\Traits\CanPersistAndFlushInterface;
 
 /**
@@ -13,6 +14,6 @@ use App\Repository\Traits\CanPersistAndFlushInterface;
  * @method Expense[]    findAll()
  * @method Expense[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-interface ExpenseRepositoryInterface extends CanPersistAndFlushInterface
+interface ExpenseRepositoryInterface extends CanDeleteInterface, CanPersistAndFlushInterface
 {
 }

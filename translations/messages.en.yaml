@@ -1,3 +1,6 @@
+expenses:
+  navigation_button_label: Expenses
+
 index:
   page_title: Lanentech Homepage
   tab_name: Lanentech

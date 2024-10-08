@@ -24,7 +24,6 @@ class Expense
 
     #[Assert\Length(max: 255, maxMessage: 'Description cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Description cannot be empty')]
-    #[Assert\NotNull(message: 'Description cannot be null')]
     #[Assert\Type('string', message: 'Description must be a string')]
     #[ORM\Column(length: 255)]
     private string $description;
@@ -39,19 +38,16 @@ class Expense
     )]
     #[Assert\Length(max: 17, maxMessage: 'Type cannot be more than 17 characters')]
     #[Assert\NotBlank(message: 'Type cannot be empty')]
-    #[Assert\NotNull(message: 'Type cannot be null')]
     #[Assert\Type('string', message: 'Type must be a string')]
     #[ORM\Column(length: 17)]
     private string $type;
 
     #[Assert\Length(max: 10, maxMessage: 'Cost cannot be more than 10 digits')]
     #[Assert\NotBlank(message: 'Cost cannot be empty')]
-    #[Assert\NotNull(message: 'Cost cannot be null')]
     #[Assert\Type('integer', message: 'Cost must be an integer')]
     #[ORM\Column(length: 10)]
     private int $cost;
 
-    #[Assert\DateTime(message: 'Date must be a valid DateTime')]
     #[Assert\NotNull(message: 'Date cannot be null')]
     #[ORM\Column(name: 'date', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $date;

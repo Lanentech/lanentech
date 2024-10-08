@@ -25,14 +25,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     #[Assert\Length(max: 180, maxMessage: 'Name cannot be more than 180 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
-    #[Assert\NotNull(message: 'Name cannot be null')]
     #[Assert\Type('string', message: 'Name must be a string')]
     #[ORM\Column(length: 180)]
     private string $name;
 
     #[Assert\Length(max: 180, maxMessage: 'Username cannot be more than 180 characters')]
     #[Assert\NotBlank(message: 'Username cannot be empty')]
-    #[Assert\NotNull(message: 'Username cannot be null')]
     #[Assert\Type('string', message: 'Username must be a string')]
     #[ORM\Column(length: 180, unique: true)]
     private string $username;
@@ -45,7 +43,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private array $roles = [];
 
     #[Assert\NotBlank(message: 'Password cannot be empty')]
-    #[Assert\NotNull(message: 'Password cannot be null')]
     #[Assert\Type('string', message: 'Password must be a string')]
     #[ORM\Column]
     private string $password;
@@ -53,7 +50,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[Assert\Email(message: 'Email must be a valid email address')]
     #[Assert\Length(max: 255, maxMessage: 'Email cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Email cannot be empty')]
-    #[Assert\NotNull(message: 'Email cannot be null')]
     #[Assert\Type('string', message: 'Email must be a string')]
     #[ORM\Column(length: 255)]
     private string $email;

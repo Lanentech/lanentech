@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expenses{% endblock %}
+
+{% block body %}
+    <h1>Expenses</h1>
+    <a href="{{ path('app_expense_new') }}">Create New Expense</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Cost</th>
+                <th>Date</th>
+                <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for expense in expenses %}
+            <tr>
+                <td><a href="{{ path('app_expense_show', {'id': expense.id}) }}">{{ expense.description }}</a></td>
+                <td>{{ expense.type }}</td>
+                <td>
+                    {% set price = expense.cost|price %}
+                    {{ price matches '/[+-]?([0-9]*[.])?[0-9]+/' ? ('&pound;' ~ price|number_format(2))|raw : price }}
+                </td>
+                <td>{{ expense.date|date("d/m/Y H:i:s") }}</td>
+                <td>{{ expense.comments }}</td>
+                <td>
+                    <a href="{{ path('app_expense_edit', {'id': expense.id}) }}">
+                        <button class="btn">Edit</button>
+                    </a>
+                    {{ include('expense/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No expenses found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

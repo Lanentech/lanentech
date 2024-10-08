@@ -80,6 +80,13 @@ services:
   App\Factory\UserFactoryInterface: '@App\Factory\UserFactory'
 
   # --------------------------------------------------------------------------------------------------------------- #
+  # Helper Class Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Helper\Price\PriceFormatter: ~
+  App\Helper\Price\PriceFormatterInterface: '@App\Helper\Price\PriceFormatter'
+
+  # --------------------------------------------------------------------------------------------------------------- #
   # Repository Service Definitions
   # --------------------------------------------------------------------------------------------------------------- #
 
@@ -115,3 +122,10 @@ services:
 
   App\Repository\UserRepository: ~
   App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
+
+  # --------------------------------------------------------------------------------------------------------------- #
+  # Twig Extension Service Definitions
+  # --------------------------------------------------------------------------------------------------------------- #
+
+  App\Twig\PriceExtension:
+    tags: [ twig.extension ]

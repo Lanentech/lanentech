@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\Controller;
 
+use App\DataFixtures\Test\UserFixtures;
 use App\Entity\User;
-use App\Repository\UserRepositoryInterface;
 use App\Tests\TestCase\ApplicationTestCase;
 use PHPUnit\Framework\Attributes\TestWith;
 use Symfony\Component\DomCrawler\Crawler;
@@ -15,7 +15,7 @@ class SecurityControllerTest extends ApplicationTestCase
 {
     private function populateLoginForm(
         Crawler $crawler,
-        ?string $username = 'test-user',
+        ?string $username = UserFixtures::NON_ADMIN_USER_USERNAME,
         ?string $password = 'password',
     ): Form {
         $form = $crawler->selectButton('Login')->form();
@@ -62,8 +62,8 @@ class SecurityControllerTest extends ApplicationTestCase
     public function testUserCanLogoutSuccessfullyAfterLoggingIn(): void
     {
         /** @var User|null $user */
-        if (!$user = $this->container->get(UserRepositoryInterface::class)->findOneBy(['username' => 'test-user'])) {
-            $this->fail('Expected user with username test-user to exist');
+        if (!$user = $this->userRepository->findOneBy(['username' => UserFixtures::NON_ADMIN_USER_USERNAME])) {
+            $this->fail(sprintf('Expected user with username %s to exist', UserFixtures::NON_ADMIN_USER_USERNAME));
         }
 
         $this->assertNull($user->getLastLoggedIn());
@@ -86,7 +86,7 @@ class SecurityControllerTest extends ApplicationTestCase
         $this->assertSelectorTextContains('a', 'Login');
 
         /** @var User $user */
-        $user = $this->container->get(UserRepositoryInterface::class)->findOneBy(['username' => 'test-user']);
+        $user = $this->userRepository->findOneBy(['username' => UserFixtures::NON_ADMIN_USER_USERNAME]);
         $this->assertNotNull($user->getLastLoggedIn());
     }
 }

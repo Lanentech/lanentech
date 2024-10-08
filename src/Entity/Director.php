@@ -32,14 +32,12 @@ class Director
 
     #[Assert\Length(max: 255, maxMessage: 'Firstname cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Firstname cannot be empty')]
-    #[Assert\NotNull(message: 'Firstname cannot be null')]
     #[Assert\Type('string', message: 'Firstname must be a string')]
     #[ORM\Column(length: 255)]
     private string $firstName;
 
     #[Assert\Length(max: 255, maxMessage: 'Lastname cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Lastname cannot be empty')]
-    #[Assert\NotNull(message: 'Lastname cannot be null')]
     #[Assert\Type('string', message: 'Lastname must be a string')]
     #[ORM\Column(length: 255)]
     private string $lastName;

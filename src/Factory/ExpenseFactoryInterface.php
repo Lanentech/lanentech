@@ -10,6 +10,8 @@ use Carbon\CarbonImmutable;
 
 interface ExpenseFactoryInterface
 {
+    public function createBlankObject(): Expense;
+
     public function create(
         string $description,
         ExpenseCategory $expenseCategory,

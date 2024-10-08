@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expense{% endblock %}
+
+{% block body %}
+    <h1>Expense</h1>
+
+    <a href="{{ path('app_expense_edit', {'id': expense.id}) }}">
+        <button class="btn">Edit</button>
+    </a>
+    {{ include('expense/_delete_form.html.twig') }}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Description</th>
+                <td>{{ expense.description }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ expense.type }}</td>
+            </tr>
+            <tr>
+                <th>Cost</th>
+                <td>
+                    {% set cost = expense.cost|price %}
+                    {{ cost matches '/[+-]?([0-9]*[.])?[0-9]+/' ? ('&pound;' ~ cost|number_format(2))|raw : cost }}
+                </td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ expense.date|date("d/m/Y H:i:s") }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ expense.comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_expense_index') }}">Back to all expenses</a>
+{% endblock %}

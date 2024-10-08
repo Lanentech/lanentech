@@ -21,7 +21,6 @@ class Billable
     #[ORM\Column]
     private int $id;
 
-    #[Assert\DateTime(message: 'Date must be a valid DateTime')]
     #[Assert\NotNull(message: 'Date cannot be null')]
     #[ORM\Column(name: 'date', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $date;
@@ -32,14 +31,12 @@ class Billable
     )]
     #[Assert\Length(max: 8, maxMessage: 'Type cannot be more than 8 characters')]
     #[Assert\NotBlank(message: 'Type cannot be empty')]
-    #[Assert\NotNull(message: 'Type cannot be null')]
     #[Assert\Type('string', message: 'Type must be a string')]
     #[ORM\Column(length: 8)]
     private string $type;
 
     #[Assert\Length(max: 10, maxMessage: 'Rate cannot be more than 10 digits')]
     #[Assert\NotBlank(message: 'Rate cannot be empty')]
-    #[Assert\NotNull(message: 'Rate cannot be null')]
     #[Assert\Type('integer', message: 'Rate must be an integer')]
     #[ORM\Column(length: 10)]
     private int $rate;

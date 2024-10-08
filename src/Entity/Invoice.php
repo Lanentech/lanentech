@@ -25,19 +25,16 @@ class Invoice
 
     #[Assert\Length(max: 255, maxMessage: 'Ident cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Ident cannot be empty')]
-    #[Assert\NotNull(message: 'Ident cannot be null')]
     #[Assert\Type('string', message: 'Ident must be a string')]
     #[ORM\Column(length: 255)]
     private string $ident;
 
     #[Assert\Length(max: 255, maxMessage: 'Number cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Number cannot be empty')]
-    #[Assert\NotNull(message: 'Number cannot be null')]
     #[Assert\Type('string', message: 'Number must be a string')]
     #[ORM\Column(length: 255)]
     private string $number;
 
-    #[Assert\DateTime(message: 'Date must be a valid DateTime')]
     #[Assert\NotNull(message: 'Date cannot be null')]
     #[ORM\Column(type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $date;

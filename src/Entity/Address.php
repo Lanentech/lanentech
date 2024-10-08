@@ -26,21 +26,18 @@ class Address
 
     #[Assert\Length(max: 10, maxMessage: 'House Number cannot be more than 10 characters')]
     #[Assert\NotBlank(message: 'House Number cannot be empty')]
-    #[Assert\NotNull(message: 'House Number cannot be null')]
     #[Assert\Type('string', message: 'House Number must be a string')]
     #[ORM\Column(length: 10)]
     private string $houseNumber;
 
     #[Assert\Length(max: 75, maxMessage: 'Street cannot be more than 75 characters')]
     #[Assert\NotBlank(message: 'Street cannot be empty')]
-    #[Assert\NotNull(message: 'Street cannot be null')]
     #[Assert\Type('string', message: 'Street must be a string')]
     #[ORM\Column(length: 75)]
     private string $street;
 
     #[Assert\Length(max: 75, maxMessage: 'Town/City cannot be more than 75 characters')]
     #[Assert\NotBlank(message: 'Town/City cannot be empty')]
-    #[Assert\NotNull(message: 'Town/City cannot be null')]
     #[Assert\Type('string', message: 'Town/City must be a string')]
     #[ORM\Column(length: 75)]
     private string $townCity;
@@ -61,7 +58,6 @@ class Address
     #[Assert\Country(message: 'Country but be a 3 letter ISO code', alpha3: true)]
     #[Assert\Length(max: 3, maxMessage: 'Country cannot be more than 3 characters')]
     #[Assert\NotBlank(message: 'Country cannot be empty')]
-    #[Assert\NotNull(message: 'Country cannot be null')]
     #[Assert\Type('string', message: 'Country must be a string')]
     #[ORM\Column(length: 3)]
     private string $country;

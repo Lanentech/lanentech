@@ -10,6 +10,11 @@ use Carbon\CarbonImmutable;
 
 readonly class ExpenseFactory extends BaseFactory implements ExpenseFactoryInterface
 {
+    public function createBlankObject(): Expense
+    {
+        return new Expense();
+    }
+
     public function create(
         string $description,
         ExpenseCategory $expenseCategory,

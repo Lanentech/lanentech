@@ -12,13 +12,21 @@ use Doctrine\Persistence\ObjectManager;
 class ExpenseCategoryFixtures extends AbstractFixture
 {
     public const string CAR_VAN_AND_TRAVEL = 'car_van_and_travel';
+    public const string CAR_VAN_AND_TRAVEL_EXPENSES_NAME = 'Car, van and travel expenses';
     public const string CLOTHING_EXPENSES = 'clothing_expenses';
+    public const string CLOTHING_EXPENSES_NAME = 'Clothing expenses';
     public const string LEGAL_AND_FINANCIAL_COSTS = 'legal_and_financial_costs';
+    public const string LEGAL_AND_FINANCIAL_COSTS_NAME = 'Legal and financial costs';
     public const string MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS = 'marketing_entertainment_and_subscriptions';
+    public const string MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS_NAME = 'Marketing, entertainment and subscriptions';
     public const string OFFICE_PROPERTY_AND_EQUIPMENT = 'office_property_and_equipment';
+    public const string OFFICE_PROPERTY_AND_EQUIPMENT_NAME = 'Office, property and equipment';
     public const string RESELLING_GOODS = 'reselling_goods';
+    public const string RESELLING_GOODS_NAME = 'Reselling goods';
     public const string STAFF_EXPENSES = 'staff_expenses';
+    public const string STAFF_EXPENSES_NAME = 'Staff expenses';
     public const string TRAINING_COURSES = 'training_courses';
+    public const string TRAINING_COURSES_NAME = 'Training courses';
 
     public function __construct(
         private readonly ExpenseCategoryFactoryInterface $expenseCategoryFactory,
@@ -96,7 +104,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $officePropertyAndEquipment = $this->expenseCategoryFactory->create(
-            name: 'Office, property and equipment',
+            name: self::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -143,7 +151,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $carVanAndTravelExpenses = $this->expenseCategoryFactory->create(
-            name: 'Car, van and travel expenses',
+            name: self::CAR_VAN_AND_TRAVEL_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -168,7 +176,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $clothingExpenses = $this->expenseCategoryFactory->create(
-            name: 'Clothing expenses',
+            name: self::CLOTHING_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -197,7 +205,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $staffExpenses = $this->expenseCategoryFactory->create(
-            name: 'Staff expenses',
+            name: self::STAFF_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -226,7 +234,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $resellingGoods = $this->expenseCategoryFactory->create(
-            name: 'Reselling goods',
+            name: self::RESELLING_GOODS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -296,7 +304,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $legalAndFinancialCosts = $this->expenseCategoryFactory->create(
-            name: 'Legal and financial costs',
+            name: self::LEGAL_AND_FINANCIAL_COSTS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -338,7 +346,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $marketingEntertainmentAndSubscriptions = $this->expenseCategoryFactory->create(
-            name: 'Marketing, entertainment and subscriptions',
+            name: self::MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
@@ -371,7 +379,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         HTML;
 
         $trainingCourses = $this->expenseCategoryFactory->create(
-            name: 'Training courses',
+            name: self::TRAINING_COURSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 

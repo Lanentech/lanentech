@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\TestCase;
 
+use App\Repository\UserRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ApplicationTestCase extends WebTestCase
 {
-    protected KernelBrowser $client;
-    protected ContainerInterface $container;
+    protected readonly ContainerInterface $container;
+    protected readonly KernelBrowser $client;
+    protected readonly UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
     {
@@ -19,5 +21,13 @@ class ApplicationTestCase extends WebTestCase
 
         $this->client = static::createClient();
         $this->container = static::getContainer();
+        $this->userRepository = $this->container->get(UserRepositoryInterface::class);
+    }
+
+    protected function loginAsUserWithEmail(string $email): void
+    {
+        $user = $this->userRepository->findOneByEmail($email);
+
+        $this->client->loginUser($user);
     }
 }

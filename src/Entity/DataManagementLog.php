@@ -22,7 +22,6 @@ class DataManagementLog
 
     #[Assert\Length(max: 255, maxMessage: 'Filename cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Filename cannot be empty')]
-    #[Assert\NotNull(message: 'Filename cannot be null')]
     #[Assert\Type('string', message: 'Filename must be a string')]
     #[ORM\Column(length: 255, nullable: false)]
     private string $filename;

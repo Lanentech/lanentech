@@ -25,13 +25,11 @@ class ExpenseCategory
 
     #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
-    #[Assert\NotNull(message: 'Name cannot be null')]
     #[Assert\Type('string', message: 'Name must be a string')]
     #[ORM\Column(length: 255)]
     private string $name;
 
     #[Assert\NotBlank(message: 'Description cannot be empty')]
-    #[Assert\NotNull(message: 'Description cannot be null')]
     #[Assert\Type('string', message: 'Description must be a string')]
     #[ORM\Column(type: Types::TEXT)]
     private string $description;

@@ -33,6 +33,13 @@ class ExpenseFactoryTest extends UnitTestCase
         );
     }
 
+    public function testCreateBlankObject(): void
+    {
+        $result = $this->sut->createBlankObject();
+
+        $this->assertInstanceOf(Expense::class, $result);
+    }
+
     public function testCreate(): void
     {
         $expenseCategoryDescription = <<<HTML
