@@ -3,26 +3,12 @@
 {% block title %}{{ 'index.tab_name'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'index.page_title'|trans }}</h1>
+    {{ parent() }}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Hi {{ app.user.name }}
-        </div>
+    {% include '/index/_headline.html.twig' %}
 
-        <a href="{{ path('app_logout') }}" class="logout-button">
-            <button type="button">{{ 'security.logout.button_label'|trans }}</button>
-        </a>
+    {% include '/index/_key_points.html.twig' %}
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_expense_index') }}">
-                <button type="button">{{ 'expenses.navigation_button_label'|trans }}</button>
-            </a>
-        {% endif %}
-    {% else %}
-        <div class="mb-3">
-            <a href="{{ path('app_login') }}">{{ 'security.login.form_element.label.submit_button'|trans }}</a>
-        </div>
-    {% endif %}
+    {% include '/_footer.html.twig' %}
 {% endblock %}
 

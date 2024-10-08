@@ -16,6 +16,9 @@ class IndexControllerTest extends ApplicationTestCase
         $this->client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Lanentech Homepage</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString(
+            'Professional<br />Website Development',
+            $this->client->getResponse()->getContent(),
+        );
     }
 }

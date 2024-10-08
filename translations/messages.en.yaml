@@ -12,7 +12,6 @@ security:
         password: Password
         submit_button: Login
         username: Username
-    page_title: Login Page
-    tab_name: Login
+    name: Login
   logout:
     button_label: Logout

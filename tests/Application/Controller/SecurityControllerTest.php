@@ -18,7 +18,7 @@ class SecurityControllerTest extends ApplicationTestCase
         ?string $username = UserFixtures::NON_ADMIN_USER_USERNAME,
         ?string $password = 'password',
     ): Form {
-        $form = $crawler->selectButton('Login')->form();
+        $form = $crawler->filter('form')->form();
 
         if ($username) {
             $form['_username'] = $username;
@@ -56,7 +56,7 @@ class SecurityControllerTest extends ApplicationTestCase
         $this->client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('Hi Test User', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Logout', $this->client->getResponse()->getContent());
     }
 
     public function testUserCanLogoutSuccessfullyAfterLoggingIn(): void
@@ -76,14 +76,14 @@ class SecurityControllerTest extends ApplicationTestCase
         $this->client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists('.logout-button');
+        $this->assertSelectorExists('span.logout');
 
         $this->client->clickLink('Logout');
         $this->assertResponseRedirects('/');
         $this->client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('a', 'Login');
+        $this->assertSelectorTextContains('span', 'Login');
 
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['username' => UserFixtures::NON_ADMIN_USER_USERNAME]);

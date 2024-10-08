@@ -19,6 +19,9 @@ fix-code:
 bash:
 	$(PREFIX) bash;
 
+build-assets:
+	$(PREFIX) bin/console asset-map:compile;
+
 # [USAGE]: make clear-cache || make clear-cache env=test
 clear-cache:
 ifdef env
