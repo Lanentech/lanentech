@@ -1,45 +1,70 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}Expenses{% endblock %}
+{% block title %}{{ 'expenses.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Expenses</h1>
-    <a href="{{ path('app_expense_new') }}">Create New Expense</a>
+    <div class="container mt-7">
+        <h1 class="display-4 lh-1 mb-4 font-alt">{{ 'expenses.header.index'|trans }}</h1>
+        <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" title="{{ 'crud.general.create'|trans }}">
+            <span class="d-flex align-items-center">
+                <i class="bi-plus-circle-fill me-2"></i>
+                <a href="{{ path('app_expense_new') }}">
+                    <span class="medium text-white logout">{{ 'crud.general.create'|trans }}</span>
+                </a>
+            </span>
+        </button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Cost</th>
-                <th>Date</th>
-                <th>Comments</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for expense in expenses %}
-            <tr>
-                <td><a href="{{ path('app_expense_show', {'id': expense.id}) }}">{{ expense.description }}</a></td>
-                <td>{{ expense.type }}</td>
-                <td>
-                    {% set price = expense.cost|price %}
-                    {{ price matches '/[+-]?([0-9]*[.])?[0-9]+/' ? ('&pound;' ~ price|number_format(2))|raw : price }}
-                </td>
-                <td>{{ expense.date|date("d/m/Y H:i:s") }}</td>
-                <td>{{ expense.comments }}</td>
-                <td>
-                    <a href="{{ path('app_expense_edit', {'id': expense.id}) }}">
-                        <button class="btn">Edit</button>
-                    </a>
-                    {{ include('expense/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">No expenses found.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="table-responsive">
+            {% set tableHeaders = [
+                'expenses.table.header.description'|trans,
+                'expenses.table.header.type'|trans,
+                'expenses.table.header.cost'|trans,
+                'expenses.table.header.date'|trans,
+                'expenses.table.header.comments'|trans,
+                'expenses.table.header.actions'|trans
+            ] %}
+
+            <table class="table mt-4 table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        {% for header in tableHeaders %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_expense_show', {'id': expense.id}) }}">
+                                {{ expense.description }}
+                            </a>
+                        </td>
+                        <td>{{ expense.type }}</td>
+                        <td>
+                            {% set price = expense.cost|price %}
+                            {% set regex = '/[+-]?([0-9]*[.])?[0-9]+/' %}
+                            {{ price matches regex ? ('&pound;' ~ price|number_format(2))|raw : price }}
+                        </td>
+                        <td>{{ expense.date|date("d/m/Y H:i:s") }}</td>
+                        <td>{{ expense.comments }}</td>
+                        <td>
+                            <button class="btn btn-primary rounded-pill mb-1 w-100" title="{{ 'crud.general.edit'|trans }}">
+                                <span class="d-flex align-items-center justify-content-center">
+                                    <i class="bi-pencil-fill me-2"></i>
+                                    <a href="{{ path('app_expense_edit', {'id': expense.id}) }}">
+                                        <span class="medium text-white logout">{{ 'crud.general.edit'|trans }}</span>
+                                    </a>
+                                </span>
+                            </button>
+                            {{ include('expense/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="{{ tableHeaders|length }}">{{ 'expenses.table.no_results'|trans }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

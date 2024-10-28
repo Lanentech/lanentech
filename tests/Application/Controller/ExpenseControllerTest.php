@@ -48,7 +48,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('GET', '/admin/expense');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Expenses</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Expenses', $this->client->getResponse()->getContent());
     }
 
     public function testNewRouteRendersPageSuccessfully(): void
@@ -58,7 +58,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('GET', '/admin/expense/new');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Create new Expense</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Create New Expense', $this->client->getResponse()->getContent());
     }
 
     public function testNewRouteWithSuccessfulFormSubmission(): void
@@ -80,7 +80,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('POST', '/admin/expense/new');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Create new Expense</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Create New Expense', $this->client->getResponse()->getContent());
 
         $this->client->submitForm('Save', [
             'expense[description]' => 'Description Value',
@@ -95,9 +95,9 @@ class ExpenseControllerTest extends ApplicationTestCase
         $responseContent = $response->getContent();
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Expense</h1>', $responseContent);
-        $this->assertStringContainsString('<th>Comments</th>', $responseContent);
-        $this->assertStringContainsString('<td>This is a comment about this expense.</td>', $responseContent);
+        $this->assertStringContainsString('Expense', $responseContent);
+        $this->assertStringContainsString('Comments', $responseContent);
+        $this->assertStringContainsString('This is a comment about this expense.', $responseContent);
     }
 
     public function testNewRouteWhenFormSubmissionFailsValidation(): void
@@ -119,7 +119,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('POST', '/admin/expense/new');
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Create new Expense</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Create New Expense', $this->client->getResponse()->getContent());
 
         $this->client->submitForm('Save', [
             'expense[description]' => '',
@@ -147,9 +147,9 @@ class ExpenseControllerTest extends ApplicationTestCase
         $responseContent = $response->getContent();
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Expense</h1>', $responseContent);
-        $this->assertStringContainsString('<th>Comments</th>', $responseContent);
-        $this->assertStringContainsString('<td>This is a comment about this expense.</td>', $responseContent);
+        $this->assertStringContainsString('Expense', $responseContent);
+        $this->assertStringContainsString('Comments', $responseContent);
+        $this->assertStringContainsString('This is a comment about this expense.', $responseContent);
     }
 
     public function testEditRouteSuccessfullyRendersPage(): void
@@ -162,7 +162,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('GET', sprintf('/admin/expense/%s/edit', $expense->getId()));
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Edit Expense</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Edit Expense', $this->client->getResponse()->getContent());
     }
 
     public function testEditRouteWhenFormSubmissionFailsValidation(): void
@@ -176,9 +176,9 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->client->request('GET', sprintf('/admin/expense/%s/edit', $expense->getId()));
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Edit Expense</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Edit Expense', $this->client->getResponse()->getContent());
 
-        $this->client->submitForm('Update', [
+        $this->client->submitForm('Save', [
             'expense[description]' => $expenseNewDescription,
         ]);
 
@@ -217,6 +217,6 @@ class ExpenseControllerTest extends ApplicationTestCase
         ]);
 
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('<h1>Expenses</h1>', $this->client->getResponse()->getContent());
+        $this->assertStringContainsString('Expenses', $this->client->getResponse()->getContent());
     }
 }

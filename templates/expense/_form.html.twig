@@ -1,4 +1,71 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="col-6 mt-3">
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_label(form.category, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'form-select'}}) }}
+            {% if form_errors(form.category)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.category) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-select'}}) }}
+            {% if form_errors(form.type)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.type) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description'}}) }}
+            {% if form_errors(form.description)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.description) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.cost, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.cost, {'attr': {'class': 'form-control', 'placeholder': 'Cost'}}) }}
+            {% if form_errors(form.cost)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.cost) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'dd/mm/yyyy'}}) }}
+            {% if form_errors(form.date)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.date) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.comments, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.comments, {'attr': {'class': 'form-control', 'placeholder': 'Additional comments'}}) }}
+            {% if form_errors(form.comments)|length > 0 %}
+                <div class="alert alert-warning mt-2 pb-0" role="alert">
+                    {{ form_errors(form.comments) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" title="{{ 'crud.general.create'|trans }}">
+            <span class="d-flex align-items-center">
+                <a href="{{ path('app_expense_new') }}">
+                    <span class="medium text-white logout">{{ 'crud.general.save'|trans }}</span>
+                </a>
+            </span>
+        </button>
+    {{ form_end(form) }}
+</div>

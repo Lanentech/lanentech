@@ -38,6 +38,7 @@ class ExpenseType extends AbstractType
             ])
             ->add('comments', TextareaType::class, [
                 'required' => false,
+                'attr' => ['rows' => 5],
             ])
             ->add('category', EntityType::class, [
                 'class' => ExpenseCategory::class,

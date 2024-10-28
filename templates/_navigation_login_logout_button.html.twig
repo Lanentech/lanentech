@@ -1,0 +1,15 @@
+<button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0">
+    <span class="d-flex align-items-center">
+        {% if app.user %}
+            <i class="bi-door-open-fill me-2"></i>
+            <a href="{{ path('app_logout') }}">
+                <span class="medium text-white logout">{{ 'security.logout.button_label'|trans }}</span>
+            </a>
+        {% else %}
+            <i class="bi-person-circle me-2"></i>
+            <a href="{{ path('app_login') }}">
+                <span class="medium text-white login">{{ 'security.login.name'|trans }}</span>
+            </a>
+        {% endif %}
+    </span>
+</button>

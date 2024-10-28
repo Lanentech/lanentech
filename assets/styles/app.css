@@ -5,3 +5,7 @@ body {
 #loom-companion-mv3 {
     display: none !important;
 }
+
+.mt-7 {
+    margin-top: 7rem !important;
+}

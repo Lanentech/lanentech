@@ -1,9 +1,81 @@
+business:
+  address:
+    county: East Yorkshire
+    number: 650
+    postcode: HU3 6UU
+    street: Anlaby Road
+    town: Kingston Upon Hull
+  company_number: 14657967
+  name: Lanentech
+  name_absolute: Lanentech Limited
+  phone_number: 07427 615948
+
+crud:
+  general:
+    create: Create
+    delete: Delete
+    edit: Edit
+    save: Save
+
 expenses:
-  navigation_button_label: Expenses
+  create:
+    header: Create New Expense
+    title: Create New Expense
+  edit:
+    header: Edit Expense
+    title: Edit Expense
+  go_back:
+    Back to all Expenses
+  header:
+    index: Expenses
+  show:
+    header: Expense
+    title: Expense
+  table:
+    header:
+        actions: Actions
+        comments: Comments
+        cost: Cost
+        date: Date
+        description: Description
+        type: Type
+    no_results: No expenses found.
+  title: Expenses
+
+footer:
+  all_rights_reserved: All Rights Reserved
+  company_number: Company Number
+  phone_number: Phone Number
 
 index:
-  page_title: Lanentech Homepage
-  tab_name: Lanentech
+  headline:
+    button_1: Contact Us
+    button_2: Give us a call
+    heading: Professional<br />Website Development
+    text_1: Looking to expand your business's customer base online? Need a mobile app developing?
+    text_2: From web development to app development, we have the skills to meet the requirements that your
+      business needs.
+    text_3: Get in touch today to see how we can transform your business's online presence and reach wider audiences.
+  home: Home
+  key_points:
+    heading:
+      cloud_computing: Cloud Computing
+      discovery: Discovery
+      modern_technologies: Modern Technologies
+      secure: Secure
+    text:
+      cloud_computing: Our infrastructure utilises Amazon Web Services and Docker, to ensure your application is secure
+        and scalable should you receive large amounts of traffic.
+      discovery: We dedicate as much time as you need, to understand and finalise the requirements for your product.
+        We take pride in delivering exactly what you ask for, first time around.
+      modern_technologies: We build your applications and websites using modern technologies, to ensure that any feature
+        that you require, is achievable and delivered to the highest standard.
+      secure: We ensure that your applications are running with the latest versions of the underlying frameworks used,
+        to keep up-to-date with the latest security patches.
+  why_us: Why us?
+
+navigation:
+  menu: Menu
 
 security:
   login:
@@ -15,3 +87,8 @@ security:
     name: Login
   logout:
     button_label: Logout
+
+website:
+  meta:
+    author: Danny Griffiths
+    description: Lanentech Website
