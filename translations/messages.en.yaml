@@ -1,3 +1,8 @@
+admin:
+  index:
+    home: Home
+    manage_expenses: Manage Expenses
+
 business:
   address:
     county: East Yorkshire
@@ -78,6 +83,7 @@ navigation:
   menu: Menu
 
 security:
+  access_denied: 'Access Denied: You do not have permission to access this page.'
   login:
     form_element:
       label:

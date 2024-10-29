@@ -21,7 +21,10 @@ class ApplicationTestCase extends WebTestCase
 
         $this->client = static::createClient();
         $this->container = static::getContainer();
-        $this->userRepository = $this->container->get(UserRepositoryInterface::class);
+
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->container->get(UserRepositoryInterface::class);
+        $this->userRepository = $userRepository;
     }
 
     protected function loginAsUserWithEmail(string $email): void

@@ -21,4 +21,24 @@ class IndexControllerTest extends ApplicationTestCase
             $this->client->getResponse()->getContent(),
         );
     }
+
+    public function testNonAdminCannotAccessAdminOnlyPage(): void
+    {
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', '/admin');
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
+    }
+
+    public function testAdminUserCanSeeAdminPageSuccessfully(): void
+    {
+        $this->loginAsUserWithEmail(UserFixtures::ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', '/admin');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('Manage Expenses', $this->client->getResponse()->getContent());
+    }
 }

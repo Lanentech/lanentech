@@ -33,6 +33,10 @@ services:
   # EventListener Service Definitions
   # --------------------------------------------------------------------------------------------------------------- #
 
+  App\EventListener\ExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
   App\EventListener\LoginSubscriber:
     tags:
       - name: kernel.event_subscriber

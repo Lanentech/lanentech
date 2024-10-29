@@ -27,7 +27,7 @@ class ExpenseController extends AbstractController
     #[Route('/', name: 'app_expense_index', methods: ['GET'])]
     public function index(): Response
     {
-        return $this->render('expense/index.html.twig', [
+        return $this->render('admin/expense/index.html.twig', [
             'expenses' => $this->expenseRepository->findAll(),
         ]);
     }
@@ -46,7 +46,7 @@ class ExpenseController extends AbstractController
             return $this->redirectToRoute('app_expense_show', ['id' => $expense->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('expense/new.html.twig', [
+        return $this->render('admin/expense/new.html.twig', [
             'expense' => $expense,
             'form' => $form,
         ]);
@@ -55,7 +55,7 @@ class ExpenseController extends AbstractController
     #[Route('/{id}', name: 'app_expense_show', methods: ['GET'])]
     public function show(Expense $expense): Response
     {
-        return $this->render('expense/show.html.twig', [
+        return $this->render('admin/expense/show.html.twig', [
             'expense' => $expense,
         ]);
     }
@@ -72,7 +72,7 @@ class ExpenseController extends AbstractController
             return $this->redirectToRoute('app_expense_show', ['id' => $expense->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('expense/edit.html.twig', [
+        return $this->render('admin/expense/edit.html.twig', [
             'expense' => $expense,
             'form' => $form,
         ]);
