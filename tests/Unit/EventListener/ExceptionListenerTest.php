@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\EventListener;
+namespace App\Tests\Unit\EventListener;
 
 use App\EventListener\ExceptionListener;
+use App\Tests\TestCase\UnitTestCase;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ExceptionListenerTest extends TestCase
+class ExceptionListenerTest extends UnitTestCase
 {
     use MockeryPHPUnitIntegration;
 
