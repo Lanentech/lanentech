@@ -12,4 +12,12 @@ class BillableFixtures extends ApplicationBillableFixtures
     {
         return ['test-fixture'];
     }
+
+    public function getDependencies(): array
+    {
+        return [
+            CompanyFixtures::class,
+            InvoiceFixtures::class,
+        ];
+    }
 }

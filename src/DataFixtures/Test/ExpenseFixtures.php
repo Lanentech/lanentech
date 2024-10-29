@@ -12,4 +12,11 @@ class ExpenseFixtures extends ApplicationExpenseFixtures
     {
         return ['test-fixture'];
     }
+
+    public function getDependencies(): array
+    {
+        return [
+            ExpenseCategoryFixtures::class,
+        ];
+    }
 }
