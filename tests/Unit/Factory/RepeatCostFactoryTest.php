@@ -54,7 +54,7 @@ class RepeatCostFactoryTest extends UnitTestCase
         $date = CarbonImmutable::parse('2023-02-23');
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Description cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Description cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

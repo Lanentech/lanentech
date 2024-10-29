@@ -49,7 +49,7 @@ class LanentechFactoryTest extends UnitTestCase
                 ->setProfessionalTitle('Bsc Hons'),
         ]);
 
-        $this->validator->expects('validate')->andReturn(new ConstraintViolationList());
+        $this->validator->expects('validate')->twice()->andReturn(new ConstraintViolationList());
 
         $result = $this->sut->create($name, $companyNumber, $incorporationDate, $directors);
 
@@ -77,7 +77,7 @@ class LanentechFactoryTest extends UnitTestCase
         ]);
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Name cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Name cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

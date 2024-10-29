@@ -73,7 +73,7 @@ class DirectorFactoryTest extends UnitTestCase
         $professionalTitle = 'Bsc Hons';
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Firstname cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Firstname cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

@@ -108,7 +108,7 @@ class ExpenseFactoryTest extends UnitTestCase
         $comments = 'This is a comment';
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Description cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Description cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

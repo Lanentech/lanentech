@@ -63,7 +63,7 @@ class AddressFactoryTest extends UnitTestCase
         $houseName = 'Farmendale';
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Street cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Street cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

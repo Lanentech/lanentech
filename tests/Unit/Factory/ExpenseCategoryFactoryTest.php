@@ -76,7 +76,7 @@ class ExpenseCategoryFactoryTest extends UnitTestCase
         HTML;
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Name cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Name cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

@@ -135,7 +135,7 @@ class BillableFactoryTest extends UnitTestCase
             );
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn(
+        $violation->shouldReceive()->getMessage()->andReturn(
             sprintf('Type invalid. Must be one of: %s', implode(',', BillableConstants::TYPES)),
         );
 

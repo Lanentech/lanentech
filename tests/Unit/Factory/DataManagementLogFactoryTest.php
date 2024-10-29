@@ -53,7 +53,7 @@ class DataManagementLogFactoryTest extends UnitTestCase
         Carbon::setTestNow($now);
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Filename cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Filename cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

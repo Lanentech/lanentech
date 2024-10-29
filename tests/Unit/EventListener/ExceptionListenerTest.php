@@ -7,7 +7,6 @@ namespace App\Tests\Unit\EventListener;
 use App\EventListener\ExceptionListener;
 use App\Tests\TestCase\UnitTestCase;
 use Mockery as m;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -18,8 +17,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExceptionListenerTest extends UnitTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     private TranslatorInterface|m\MockInterface $translator;
 
     private ExceptionListener $sut;

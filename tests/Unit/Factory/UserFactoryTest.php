@@ -85,7 +85,7 @@ class UserFactoryTest extends UnitTestCase
             ->andReturn('qwerty123456');
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Username cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Username cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);

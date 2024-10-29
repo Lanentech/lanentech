@@ -60,7 +60,7 @@ class InvoiceFactoryTest extends UnitTestCase
         $agencyInvoiceNumber = '98866';
 
         $violation = m::mock(ConstraintViolation::class);
-        $violation->expects()->getMessage()->andReturn('Ident cannot be empty');
+        $violation->shouldReceive()->getMessage()->andReturn('Ident cannot be empty');
 
         $violations = new ConstraintViolationList();
         $violations->add($violation);
