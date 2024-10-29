@@ -48,6 +48,27 @@ class SecurityControllerTest extends ApplicationTestCase
 
     public function testUserCanLoginSuccessfully(): void
     {
+        if (!$this->userRepository->findOneByUsername(UserFixtures::NON_ADMIN_USER_USERNAME)) {
+            $this->fail(sprintf('Expected user with username %s to exist', UserFixtures::NON_ADMIN_USER_USERNAME));
+        }
+
+        $crawler = $this->client->request('GET', '/login');
+        $loginForm = $this->populateLoginForm($crawler);
+
+        $this->client->submit($loginForm);
+        $this->assertResponseRedirects('/');
+        $this->client->followRedirect();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('Logout', $this->client->getResponse()->getContent());
+    }
+
+    public function testAdminUserCanLoginSuccessfully(): void
+    {
+        if (!$this->userRepository->findOneByUsername(UserFixtures::ADMIN_USER_USERNAME)) {
+            $this->fail(sprintf('Expected user with username %s to exist', UserFixtures::ADMIN_USER_USERNAME));
+        }
+
         $crawler = $this->client->request('GET', '/login');
         $loginForm = $this->populateLoginForm($crawler);
 
@@ -88,5 +109,23 @@ class SecurityControllerTest extends ApplicationTestCase
         /** @var User $user */
         $user = $this->userRepository->findOneByUsername(UserFixtures::NON_ADMIN_USER_USERNAME);
         $this->assertNotNull($user->getLastLoggedIn());
+    }
+
+    public function testAdminUserIsRedirectedOnLogin(): void
+    {
+        /** @var User|null $adminUser */
+        if (!$adminUser = $this->userRepository->findOneByUsername(UserFixtures::ADMIN_USER_USERNAME)) {
+            $this->fail(sprintf('Expected User with username %s to exist', UserFixtures::ADMIN_USER_USERNAME));
+        }
+
+        $crawler = $this->client->request('GET', '/login');
+        $loginForm = $this->populateLoginForm($crawler, $adminUser->getUsername());
+
+        $this->client->submit($loginForm);
+        $this->assertResponseRedirects('/admin');
+        $this->client->followRedirect();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('Admin Dashboard', $this->client->getResponse()->getContent());
     }
 }

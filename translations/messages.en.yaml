@@ -1,7 +1,11 @@
 admin:
   index:
+    header: Admin Dashboard
     home: Home
+    list:
+      pre-text: 'As an admin, you can:'
     manage_expenses: Manage Expenses
+    title: Admin Dashboard
 
 business:
   address:

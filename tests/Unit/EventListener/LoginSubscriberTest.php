@@ -10,22 +10,26 @@ use App\Repository\UserRepositoryInterface;
 use App\Tests\TestCase\UnitTestCase;
 use Carbon\CarbonImmutable;
 use Mockery as m;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 class LoginSubscriberTest extends UnitTestCase
 {
+    private m\MockInterface|RouterInterface $router;
     private m\MockInterface|UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
 
+        $this->router = m::mock(RouterInterface::class);
         $this->userRepository = m::mock(UserRepositoryInterface::class);
     }
 
     private function fixture(): LoginSubscriber
     {
         return new LoginSubscriber(
+            $this->router,
             $this->userRepository,
         );
     }
@@ -35,6 +39,7 @@ class LoginSubscriberTest extends UnitTestCase
         $expected = [
             LoginSuccessEvent::class => [
                 ['updateLastLoggedInOnUser', 0],
+                ['redirectAdminUser', -10],
             ],
         ];
 

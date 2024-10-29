@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}{{ 'business.name'|trans }}{% endblock %}
+{% block title %}{{ 'business.name'|trans }} - {{ 'admin.index.title'|trans }}{% endblock %}
 
 {% block body %}
     {{ parent() }}
 
     <div class="container mt-7">
-        <h1 class="display-4 lh-1 mb-4 font-alt">Admin Page</h1>
-        <p class="lead fw-normal text-muted mb-3">As an admin, you can:</p>
+        <h1 class="display-4 lh-1 mb-4 font-alt">{{ 'admin.index.title'|trans }}</h1>
+        <p class="lead fw-normal text-muted mb-3">{{ 'admin.index.list.pre-text'|trans }}</p>
         <div class="list-group col-3">
             <a href="{{ path('app_expense_index') }}" class="list-group-item list-group-item-action list-group-item-info" aria-current="true">
                 <i class="bi-currency-pound me-2"></i>
