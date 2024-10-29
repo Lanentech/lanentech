@@ -5,38 +5,38 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Factory\UserFactoryInterface;
+use App\Repository\UserRepositoryInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends AbstractFixture
 {
     public function __construct(
-        private readonly UserFactoryInterface $userFactory,
+        private readonly UserFactoryInterface $factory,
+        private readonly UserRepositoryInterface $repository,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $this->createStandardUserFixture($manager);
-        $this->createAdminUserFixture($manager);
-
-        $manager->flush();
+        $this->createStandardUserFixture();
+        $this->createAdminUserFixture();
     }
 
-    private function createStandardUserFixture(ObjectManager $manager): void
+    private function createStandardUserFixture(): void
     {
-        $standardUser = $this->userFactory->create(
+        $standardUser = $this->factory->create(
             name: 'Standard User',
             username: 'standard-user',
             email: 'standard-user@lanentech.co.uk',
             password: 'password',
         );
 
-        $manager->persist($standardUser);
+        $this->repository->save($standardUser);
     }
 
-    private function createAdminUserFixture(ObjectManager $manager): void
+    private function createAdminUserFixture(): void
     {
-        $adminUser = $this->userFactory->create(
+        $adminUser = $this->factory->create(
             name: 'Admin User',
             username: 'admin-user',
             email: 'admin-user@lanentech.co.uk',
@@ -44,6 +44,6 @@ class UserFixtures extends AbstractFixture
             roles: ['ROLE_ADMIN'],
         );
 
-        $manager->persist($adminUser);
+        $this->repository->save($adminUser);
     }
 }

@@ -5,22 +5,23 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Const\Expense as ExpenseConstants;
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\ExpenseRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ExpenseRepository::class)]
+#[ORM\Entity]
 class Expense
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 255, maxMessage: 'Description cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Description cannot be empty')]
@@ -56,11 +57,6 @@ class Expense
     #[Assert\Type('string', message: 'Comments must be a string')]
     #[ORM\Column(type: Types::TEXT, length: 5000, nullable: true)]
     private ?string $comments = null;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getDescription(): string
     {

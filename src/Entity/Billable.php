@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Const\Billable as BillableConstants;
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\BillableRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: BillableRepository::class)]
+#[ORM\Entity]
 class Billable
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\NotNull(message: 'Date cannot be null')]
     #[ORM\Column(name: 'date', type: 'carbon_immutable', nullable: false)]
@@ -57,11 +58,6 @@ class Billable
     #[Assert\Type(type: Company::class, message: 'The value {{ value }} is not a valid {{ type }}.')]
     #[ORM\ManyToOne]
     private ?Company $agency = null;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getDate(): DateTimeImmutable
     {

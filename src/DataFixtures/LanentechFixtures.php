@@ -6,6 +6,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Director;
 use App\Factory\LanentechFactoryInterface;
+use App\Repository\LanentechRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,7 +15,8 @@ use Doctrine\Persistence\ObjectManager;
 class LanentechFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function __construct(
-        private readonly LanentechFactoryInterface $lanentechFactory,
+        private readonly LanentechFactoryInterface $factory,
+        private readonly LanentechRepositoryInterface $repository,
     ) {
     }
 
@@ -27,18 +29,16 @@ class LanentechFixtures extends AbstractFixture implements DependentFixtureInter
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullyPopulatedLanentechFixture($manager);
-
-        $manager->flush();
+        $this->createFullyPopulatedLanentechFixture();
     }
 
-    private function createFullyPopulatedLanentechFixture(ObjectManager $manager): void
+    private function createFullyPopulatedLanentechFixture(): void
     {
         if (!$incorporationDate = CarbonImmutable::create(year: 2023, month: 2, day: 13, hour: 9)) {
             $this->throwExceptionWhenDateCannotBeCreated('Incorporation Date');
         }
 
-        $lanentech = $this->lanentechFactory->create(
+        $lanentech = $this->factory->create(
             name: 'Lanentech',
             companyNumber: 14657967,
             incorporationDate: $incorporationDate,
@@ -48,6 +48,6 @@ class LanentechFixtures extends AbstractFixture implements DependentFixtureInter
             ]),
         );
 
-        $manager->persist($lanentech);
+        $this->repository->save($lanentech);
     }
 }

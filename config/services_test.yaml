@@ -19,3 +19,11 @@ services:
 
   security.csrf.token_manager:
     class: App\Tests\Common\Csrf\CsrfTokenManagerMock
+
+  App\DataManagement\:
+    resource: '../src/DataManagement/'
+    public: true
+
+  App\Repository\:
+    resource: '../src/Repository/'
+    public: true

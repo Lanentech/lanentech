@@ -32,6 +32,6 @@ readonly class LoginSubscriber implements EventSubscriberInterface
         $user = $event->getUser();
         $user->setLastLoggedIn(new CarbonImmutable());
 
-        $this->userRepository->flush();
+        $this->userRepository->save();
     }
 }

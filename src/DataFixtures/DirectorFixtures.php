@@ -6,6 +6,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Director;
 use App\Factory\DirectorFactoryInterface;
+use App\Repository\DirectorRepositoryInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class DirectorFixtures extends AbstractFixture
@@ -14,21 +15,20 @@ class DirectorFixtures extends AbstractFixture
     public const string MINIMALLY_POPULATED_DIRECTOR = 'minimally_populated_director';
 
     public function __construct(
-        private readonly DirectorFactoryInterface $directorFactory,
+        private readonly DirectorFactoryInterface $factory,
+        private readonly DirectorRepositoryInterface $repository,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullyPopulatedDirectorFixture($manager);
-        $this->createMinimallyPopulatedDirectorFixture($manager);
-
-        $manager->flush();
+        $this->createFullyPopulatedDirectorFixture();
+        $this->createMinimallyPopulatedDirectorFixture();
     }
 
-    private function createFullyPopulatedDirectorFixture(ObjectManager $manager): void
+    private function createFullyPopulatedDirectorFixture(): void
     {
-        $fullyPopulatedDirector = $this->directorFactory->create(
+        $fullyPopulatedDirector = $this->factory->create(
             firstName: 'Teresa',
             lastName: 'Green',
             title: 'Miss',
@@ -38,21 +38,21 @@ class DirectorFixtures extends AbstractFixture
             professionalTitle: 'Bsc Hons',
         );
 
-        $manager->persist($fullyPopulatedDirector);
+        $this->repository->save($fullyPopulatedDirector);
 
         if (!$this->hasReference(self::FULLY_POPULATED_DIRECTOR, Director::class)) {
             $this->addReference(self::FULLY_POPULATED_DIRECTOR, $fullyPopulatedDirector);
         }
     }
 
-    private function createMinimallyPopulatedDirectorFixture(ObjectManager $manager): void
+    private function createMinimallyPopulatedDirectorFixture(): void
     {
-        $minimallyPopulatedDirector = $this->directorFactory->create(
+        $minimallyPopulatedDirector = $this->factory->create(
             firstName: 'Joe',
             lastName: 'Bloggs',
         );
 
-        $manager->persist($minimallyPopulatedDirector);
+        $this->repository->save($minimallyPopulatedDirector);
 
         if (!$this->hasReference(self::MINIMALLY_POPULATED_DIRECTOR, Director::class)) {
             $this->addReference(self::MINIMALLY_POPULATED_DIRECTOR, $minimallyPopulatedDirector);

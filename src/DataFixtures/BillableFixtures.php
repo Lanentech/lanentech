@@ -8,6 +8,7 @@ use App\Entity\Company;
 use App\Entity\Const\Billable as BillableConstants;
 use App\Entity\Invoice;
 use App\Factory\BillableFactoryInterface;
+use App\Repository\BillableRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,7 +16,8 @@ use Doctrine\Persistence\ObjectManager;
 class BillableFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function __construct(
-        private readonly BillableFactoryInterface $billableFactory,
+        private readonly BillableFactoryInterface $factory,
+        private readonly BillableRepositoryInterface $repository,
     ) {
     }
 
@@ -29,13 +31,11 @@ class BillableFixtures extends AbstractFixture implements DependentFixtureInterf
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullDayBillableFixture($manager);
-        $this->createHalfDayBillableFixture($manager);
-
-        $manager->flush();
+        $this->createFullDayBillableFixture();
+        $this->createHalfDayBillableFixture();
     }
 
-    private function createFullDayBillableFixture(ObjectManager $manager): void
+    private function createFullDayBillableFixture(): void
     {
         if (!$date = CarbonImmutable::create(year: 2023, month: 5, day: 12)) {
             $this->throwExceptionWhenDateCannotBeCreated('Date');
@@ -48,7 +48,7 @@ class BillableFixtures extends AbstractFixture implements DependentFixtureInterf
         /** @var Company $agency */
         $agency = $this->getReference(CompanyFixtures::FULLY_POPULATED_AGENCY, Company::class);
 
-        $billable = $this->billableFactory->create(
+        $billable = $this->factory->create(
             date: $date,
             type: BillableConstants::TYPE_FULL_DAY,
             rate: 25000,
@@ -58,10 +58,10 @@ class BillableFixtures extends AbstractFixture implements DependentFixtureInterf
             agency: $agency,
         );
 
-        $manager->persist($billable);
+        $this->repository->save($billable);
     }
 
-    private function createHalfDayBillableFixture(ObjectManager $manager): void
+    private function createHalfDayBillableFixture(): void
     {
         if (!$date = CarbonImmutable::create(year: 2023, month: 2, day: 23)) {
             $this->throwExceptionWhenDateCannotBeCreated('Date');
@@ -74,7 +74,7 @@ class BillableFixtures extends AbstractFixture implements DependentFixtureInterf
         /** @var Company $agency */
         $agency = $this->getReference(CompanyFixtures::AGENCY_WITH_NO_ADDRESS, Company::class);
 
-        $billable = $this->billableFactory->create(
+        $billable = $this->factory->create(
             date: $date,
             type: BillableConstants::TYPE_HALF_DAY,
             rate: 25000,
@@ -84,6 +84,6 @@ class BillableFixtures extends AbstractFixture implements DependentFixtureInterf
             agency: $agency,
         );
 
-        $manager->persist($billable);
+        $this->repository->save($billable);
     }
 }

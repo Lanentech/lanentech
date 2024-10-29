@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: AddressRepository::class)]
+#[ORM\Entity]
 class Address
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 50, maxMessage: 'House Name cannot be more than 50 characters')]
     #[Assert\Type('string', message: 'House Name must be a string')]
@@ -61,11 +62,6 @@ class Address
     #[Assert\Type('string', message: 'Country must be a string')]
     #[ORM\Column(length: 3)]
     private string $country;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getHouseName(): ?string
     {

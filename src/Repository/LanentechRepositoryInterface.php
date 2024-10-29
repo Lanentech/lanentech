@@ -5,14 +5,22 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Lanentech;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method Lanentech|null find($id, $lockMode = null, $lockVersion = null)
- * @method Lanentech|null findOneBy(array $criteria, array $orderBy = null)
- * @method Lanentech[]    findAll()
- * @method Lanentech[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface LanentechRepositoryInterface extends CanPersistAndFlushInterface
+interface LanentechRepositoryInterface
 {
+    public function findOneById(int $id): ?Lanentech;
+
+    /**
+     * @return Lanentech[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return Lanentech[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(Lanentech $object): void;
+
+    public function save(?Lanentech $object = null): void;
 }

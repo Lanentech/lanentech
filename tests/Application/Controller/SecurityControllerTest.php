@@ -62,7 +62,7 @@ class SecurityControllerTest extends ApplicationTestCase
     public function testUserCanLogoutSuccessfullyAfterLoggingIn(): void
     {
         /** @var User|null $user */
-        if (!$user = $this->userRepository->findOneBy(['username' => UserFixtures::NON_ADMIN_USER_USERNAME])) {
+        if (!$user = $this->userRepository->findOneByUsername(UserFixtures::NON_ADMIN_USER_USERNAME)) {
             $this->fail(sprintf('Expected user with username %s to exist', UserFixtures::NON_ADMIN_USER_USERNAME));
         }
 
@@ -86,7 +86,7 @@ class SecurityControllerTest extends ApplicationTestCase
         $this->assertSelectorTextContains('span', 'Login');
 
         /** @var User $user */
-        $user = $this->userRepository->findOneBy(['username' => UserFixtures::NON_ADMIN_USER_USERNAME]);
+        $user = $this->userRepository->findOneByUsername(UserFixtures::NON_ADMIN_USER_USERNAME);
         $this->assertNotNull($user->getLastLoggedIn());
     }
 }

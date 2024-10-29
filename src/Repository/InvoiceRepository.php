@@ -5,19 +5,80 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Invoice;
-use App\Repository\Traits\CanPersistAndFlush;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @extends ServiceEntityRepository<Invoice>
- */
-class InvoiceRepository extends ServiceEntityRepository implements InvoiceRepositoryInterface
+readonly class InvoiceRepository implements InvoiceRepositoryInterface
 {
-    use CanPersistAndFlush;
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+    ) {
+    }
 
-    public function __construct(ManagerRegistry $registry)
+    public function findOneById(int $id): ?Invoice
     {
-        parent::__construct($registry, Invoice::class);
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('invoice')
+            ->from(Invoice::class, 'invoice')
+            ->where('invoice.id = :id')
+            ->setParameter('id', $id);
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        if (is_array($result) && count($result) > 0) {
+            if ($result[0] instanceof Invoice) {
+                return $result[0];
+            }
+        }
+
+        return null;
+    }
+
+    public function findAll(): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('invoice')
+            ->from(Invoice::class, 'invoice');
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        if (is_array($result)) {
+            return array_filter($result, static fn ($item) => $item instanceof Invoice);
+        }
+
+        return [];
+    }
+
+    public function fetchBatch(int $offset, int $limit): array
+    {
+        $result = $this->entityManager->createQueryBuilder()
+            ->select('invoice')
+            ->from(Invoice::class, 'invoice')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        if (is_array($result)) {
+            return array_filter($result, static fn ($item) => $item instanceof Invoice);
+        }
+
+        return [];
+    }
+
+    public function delete(Invoice $object): void
+    {
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+    }
+
+    public function save(?Invoice $object = null): void
+    {
+        if ($object && $object->getId() === null) {
+            $this->entityManager->persist($object);
+        }
+
+        $this->entityManager->flush();
     }
 }

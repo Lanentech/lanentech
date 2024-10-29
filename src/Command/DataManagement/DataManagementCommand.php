@@ -95,7 +95,7 @@ class DataManagementCommand extends Command
 
     private function shouldSkipLoadingDataManagementFile(string $filename): bool
     {
-        return !str_contains($filename, 'Version') || $this->repository->findOneBy(['filename' => $filename]);
+        return !str_contains($filename, 'Version') || $this->repository->findOneByFilename($filename);
     }
 
     private function getClassNameFromFilename(string $filename): string
@@ -120,7 +120,6 @@ class DataManagementCommand extends Command
     {
         $dataManagementLog = $this->factory->create($filename);
 
-        $this->repository->persist($dataManagementLog);
-        $this->repository->flush();
+        $this->repository->save($dataManagementLog);
     }
 }

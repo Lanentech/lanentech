@@ -5,22 +5,31 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Repository\Traits\CanPersistAndFlushInterface;
-use App\Repository\Traits\SupportsBatchFetchingInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
-/**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface UserRepositoryInterface extends
-    CanPersistAndFlushInterface,
-    PasswordUpgraderInterface,
-    SupportsBatchFetchingInterface
+interface UserRepositoryInterface extends PasswordUpgraderInterface
 {
+    public function findOneById(int $id): ?User;
+
+    public function findOneByEmail(string $email): ?User;
+
+    public function findOneByUsername(string $username): ?User;
+
+    /**
+     * @return User[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return User[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(User $object): void;
+
+    public function save(?User $object = null): void;
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

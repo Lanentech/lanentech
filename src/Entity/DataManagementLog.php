@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\DataManagementLogRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: DataManagementLogRepository::class)]
+#[ORM\Entity]
 class DataManagementLog
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 255, maxMessage: 'Filename cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Filename cannot be empty')]
@@ -30,11 +31,6 @@ class DataManagementLog
     #[Assert\NotNull(message: 'Run Time cannot be null')]
     #[ORM\Column(name: 'run_time', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $runTime;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getFilename(): string
     {

@@ -44,7 +44,7 @@ trait ExpenseSeeder
         $expenseCategoryName = $overrides['expenseCategory'] ??
             ExpenseCategoryFixtures::CAR_VAN_AND_TRAVEL_EXPENSES_NAME;
 
-        if (null === $expenseCategory = $this->expenseCategoryRepository->findOneBy(['name' => $expenseCategoryName])) {
+        if (null === $expenseCategory = $this->expenseCategoryRepository->findOneByName($expenseCategoryName)) {
             $this->fail(sprintf('Cannot seed Expense, as cannot find Expense using name "%s"', $expenseCategoryName));
         }
 
@@ -57,8 +57,7 @@ trait ExpenseSeeder
             comments: $overrides['comments'] ?? '',
         );
 
-        $this->expenseRepository->persist($expense);
-        $this->expenseRepository->flush();
+        $this->expenseRepository->save($expense);
 
         return $expense;
     }

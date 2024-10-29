@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\InvoiceRepository;
 use App\Validator\Constraint\Billables;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,15 +13,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: InvoiceRepository::class)]
+#[ORM\Entity]
 class Invoice
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 255, maxMessage: 'Ident cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Ident cannot be empty')]
@@ -59,11 +60,6 @@ class Invoice
     public function __construct()
     {
         $this->billables = new ArrayCollection();
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getIdent(): string

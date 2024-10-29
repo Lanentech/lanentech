@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 use App\Entity\Const\Expense as ExpenseConstants;
 use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseFactoryInterface;
+use App\Repository\ExpenseRepositoryInterface;
 use Carbon\CarbonImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -14,7 +15,8 @@ use Doctrine\Persistence\ObjectManager;
 class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterface
 {
     public function __construct(
-        private readonly ExpenseFactoryInterface $expenseFactory,
+        private readonly ExpenseFactoryInterface $factory,
+        private readonly ExpenseRepositoryInterface $repository,
     ) {
     }
 
@@ -27,19 +29,17 @@ class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterfa
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullyPopulatedExpenseFixture($manager);
-        $this->createMinimallyPopulatedExpenseFixture($manager);
-
-        $manager->flush();
+        $this->createFullyPopulatedExpenseFixture();
+        $this->createMinimallyPopulatedExpenseFixture();
     }
 
-    private function createFullyPopulatedExpenseFixture(ObjectManager $manager): void
+    private function createFullyPopulatedExpenseFixture(): void
     {
         if (!$date = CarbonImmutable::create(year: 2024, month: 2, day: 18, hour: 15, minute: 22, second: 52)) {
             $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
-        $fullyPopulatedExpense = $this->expenseFactory->create(
+        $fullyPopulatedExpense = $this->factory->create(
             description: 'Accountancy Fee for Year End Accounts',
             expenseCategory: $this->getReference(
                 ExpenseCategoryFixtures::LEGAL_AND_FINANCIAL_COSTS,
@@ -51,16 +51,16 @@ class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterfa
             comments: 'This is the annual fee for the company, for the accountant to submit the companies accounts',
         );
 
-        $manager->persist($fullyPopulatedExpense);
+        $this->repository->save($fullyPopulatedExpense);
     }
 
-    private function createMinimallyPopulatedExpenseFixture(ObjectManager $manager): void
+    private function createMinimallyPopulatedExpenseFixture(): void
     {
         if (!$date = CarbonImmutable::create(year: 2024, month: 2, day: 23, hour: 11, minute: 49, second: 13)) {
             $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 
-        $minimallyPopulatedExpense = $this->expenseFactory->create(
+        $minimallyPopulatedExpense = $this->factory->create(
             description: 'Symfony 7 online course',
             expenseCategory: $this->getReference(
                 ExpenseCategoryFixtures::TRAINING_COURSES,
@@ -71,6 +71,6 @@ class ExpenseFixtures extends AbstractFixture implements DependentFixtureInterfa
             cost: 14999,
         );
 
-        $manager->persist($minimallyPopulatedExpense);
+        $this->repository->save($minimallyPopulatedExpense);
     }
 }

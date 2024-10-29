@@ -5,14 +5,22 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Billable;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method Billable|null find($id, $lockMode = null, $lockVersion = null)
- * @method Billable|null findOneBy(array $criteria, array $orderBy = null)
- * @method Billable[]    findAll()
- * @method Billable[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface BillableRepositoryInterface extends CanPersistAndFlushInterface
+interface BillableRepositoryInterface
 {
+    public function findOneById(int $id): ?Billable;
+
+    /**
+     * @return Billable[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return Billable[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(Billable $object): void;
+
+    public function save(?Billable $object = null): void;
 }

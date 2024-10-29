@@ -106,7 +106,7 @@ class DataManagementCommandTest extends BaseTestCommand
         $usernameBefore = TestDataManagementFile::TEST_USER_USERNAME_BEFORE_UPDATE;
         $usernameAfter = TestDataManagementFile::TEST_USER_USERNAME_AFTER_UPDATE;
 
-        if (!$user = $this->userRepository->findOneBy(['username' => $usernameBefore])) {
+        if (!$user = $this->userRepository->findOneByUsername($usernameBefore)) {
             $this->fail(sprintf('Expected test user fixture to exist with username "%s"', $usernameBefore));
         }
 
@@ -118,8 +118,8 @@ class DataManagementCommandTest extends BaseTestCommand
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString('executed successfully', $this->cleanOutput($output));
 
-        $this->assertNull($this->userRepository->findOneBy(['username' => $usernameBefore]));
-        $this->assertNotNull($this->userRepository->findOneBy(['username' => $usernameAfter]));
+        $this->assertNull($this->userRepository->findOneByUsername($usernameBefore));
+        $this->assertNotNull($this->userRepository->findOneByUsername($usernameAfter));
     }
 
     public function testExecuteWhenValidDataManagementFileHasAlreadyBeenRun(): void

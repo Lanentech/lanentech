@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataFixtures\Test;
 
 use App\Factory\UserFactoryInterface;
+use App\Repository\UserRepositoryInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -17,7 +18,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     public const string NON_ADMIN_USER_USERNAME = 'test-user';
 
     public function __construct(
-        private readonly UserFactoryInterface $userFactory,
+        private readonly UserFactoryInterface $factory,
+        private readonly UserRepositoryInterface $repository,
     ) {
     }
 
@@ -28,27 +30,27 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $this->createTestStandardUserFixture($manager);
-        $this->createTestAdminUserFixture($manager);
+        $this->createTestStandardUserFixture();
+        $this->createTestAdminUserFixture();
 
         $manager->flush();
     }
 
-    private function createTestStandardUserFixture(ObjectManager $manager): void
+    private function createTestStandardUserFixture(): void
     {
-        $standardUser = $this->userFactory->create(
+        $standardUser = $this->factory->create(
             name: 'Test User',
             username: self::NON_ADMIN_USER_USERNAME,
             email: self::NON_ADMIN_USER_EMAIL,
             password: 'password',
         );
 
-        $manager->persist($standardUser);
+        $this->repository->save($standardUser);
     }
 
-    private function createTestAdminUserFixture(ObjectManager $manager): void
+    private function createTestAdminUserFixture(): void
     {
-        $adminUser = $this->userFactory->create(
+        $adminUser = $this->factory->create(
             name: 'Test Admin User',
             username: self::ADMIN_USER_USERNAME,
             email: self::ADMIN_USER_EMAIL,
@@ -56,6 +58,6 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             roles: ['ROLE_ADMIN'],
         );
 
-        $manager->persist($adminUser);
+        $this->repository->save($adminUser);
     }
 }

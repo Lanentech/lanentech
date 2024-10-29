@@ -5,15 +5,24 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Expense;
-use App\Repository\Traits\CanDeleteInterface;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method Expense|null find($id, $lockMode = null, $lockVersion = null)
- * @method Expense|null findOneBy(array $criteria, array $orderBy = null)
- * @method Expense[]    findAll()
- * @method Expense[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface ExpenseRepositoryInterface extends CanDeleteInterface, CanPersistAndFlushInterface
+interface ExpenseRepositoryInterface
 {
+    public function findOneById(int $id): ?Expense;
+
+    public function findOneByDescription(string $description): ?Expense;
+
+    /**
+     * @return Expense[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return Expense[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(Expense $object): void;
+
+    public function save(?Expense $object = null): void;
 }

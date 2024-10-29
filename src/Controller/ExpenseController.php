@@ -41,8 +41,7 @@ class ExpenseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->expenseRepository->persist($expense);
-            $this->expenseRepository->flush();
+            $this->expenseRepository->save($expense);
 
             return $this->redirectToRoute('app_expense_show', ['id' => $expense->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -68,7 +67,7 @@ class ExpenseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->expenseRepository->flush();
+            $this->expenseRepository->save();
 
             return $this->redirectToRoute('app_expense_show', ['id' => $expense->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -84,7 +83,6 @@ class ExpenseController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $expense->getId(), (string) $request->request->get('_token'))) {
             $this->expenseRepository->delete($expense);
-            $this->expenseRepository->flush();
         }
 
         return $this->redirectToRoute('app_expense_index', [], Response::HTTP_SEE_OTHER);

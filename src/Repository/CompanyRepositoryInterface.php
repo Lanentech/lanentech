@@ -5,14 +5,22 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Company;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method Company|null find($id, $lockMode = null, $lockVersion = null)
- * @method Company|null findOneBy(array $criteria, array $orderBy = null)
- * @method Company[]    findAll()
- * @method Company[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface CompanyRepositoryInterface extends CanPersistAndFlushInterface
+interface CompanyRepositoryInterface
 {
+    public function findOneById(int $id): ?Company;
+
+    /**
+     * @return Company[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return Company[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(Company $object): void;
+
+    public function save(?Company $object = null): void;
 }

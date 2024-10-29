@@ -8,6 +8,7 @@ use App\Entity\Address;
 use App\Entity\Company;
 use App\Entity\Const\Company as CompanyConstants;
 use App\Factory\CompanyFactoryInterface;
+use App\Repository\CompanyRepositoryInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class CompanyFixtures extends AbstractFixture
@@ -19,24 +20,23 @@ class CompanyFixtures extends AbstractFixture
     public const string FULLY_POPULATED_COMPANY = 'fully_populated_company';
 
     public function __construct(
-        private readonly CompanyFactoryInterface $companyFactory,
+        private readonly CompanyFactoryInterface $factory,
+        private readonly CompanyRepositoryInterface $repository,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullyPopulatedCompanyFixture($manager);
-        $this->createFullyPopulatedAgencyFixture($manager);
-        $this->createCompanyWithNoAddressFixture($manager);
-        $this->createFullyPopulatedClientFixture($manager);
-        $this->createClientWithNoAddressFixture($manager);
-
-        $manager->flush();
+        $this->createFullyPopulatedCompanyFixture();
+        $this->createFullyPopulatedAgencyFixture();
+        $this->createCompanyWithNoAddressFixture();
+        $this->createFullyPopulatedClientFixture();
+        $this->createClientWithNoAddressFixture();
     }
 
-    private function createFullyPopulatedCompanyFixture(ObjectManager $manager): void
+    private function createFullyPopulatedCompanyFixture(): void
     {
-        $fullyPopulatedCompany = $this->companyFactory->create(
+        $fullyPopulatedCompany = $this->factory->create(
             name: 'Lanentech',
             ident: 'lanentech',
             type: CompanyConstants::TYPE_BUSINESS,
@@ -49,16 +49,16 @@ class CompanyFixtures extends AbstractFixture
                 ->setCountry('GBR')
         );
 
-        $manager->persist($fullyPopulatedCompany);
+        $this->repository->save($fullyPopulatedCompany);
 
         if (!$this->hasReference(self::FULLY_POPULATED_COMPANY, Company::class)) {
             $this->addReference(self::FULLY_POPULATED_COMPANY, $fullyPopulatedCompany);
         }
     }
 
-    private function createFullyPopulatedAgencyFixture(ObjectManager $manager): void
+    private function createFullyPopulatedAgencyFixture(): void
     {
-        $fullyPopulatedAgency = $this->companyFactory->create(
+        $fullyPopulatedAgency = $this->factory->create(
             name: 'Agents R Us',
             ident: 'agents-r-us',
             type: CompanyConstants::TYPE_AGENCY,
@@ -71,32 +71,32 @@ class CompanyFixtures extends AbstractFixture
                 ->setCountry('GBR')
         );
 
-        $manager->persist($fullyPopulatedAgency);
+        $this->repository->save($fullyPopulatedAgency);
 
         if (!$this->hasReference(self::FULLY_POPULATED_AGENCY, Company::class)) {
             $this->addReference(self::FULLY_POPULATED_AGENCY, $fullyPopulatedAgency);
         }
     }
 
-    private function createCompanyWithNoAddressFixture(ObjectManager $manager): void
+    private function createCompanyWithNoAddressFixture(): void
     {
-        $agencyWithNoAddress = $this->companyFactory->create(
+        $agencyWithNoAddress = $this->factory->create(
             name: 'Morpheus International',
             ident: 'morpheus-international',
             type: CompanyConstants::TYPE_AGENCY,
             companyNumber: 12345678,
         );
 
-        $manager->persist($agencyWithNoAddress);
+        $this->repository->save($agencyWithNoAddress);
 
         if (!$this->hasReference(self::AGENCY_WITH_NO_ADDRESS, Company::class)) {
             $this->addReference(self::AGENCY_WITH_NO_ADDRESS, $agencyWithNoAddress);
         }
     }
 
-    private function createFullyPopulatedClientFixture(ObjectManager $manager): void
+    private function createFullyPopulatedClientFixture(): void
     {
-        $fullyPopulatedClient = $this->companyFactory->create(
+        $fullyPopulatedClient = $this->factory->create(
             name: 'Elite Tech UK',
             ident: 'elite-tech-uk',
             type: CompanyConstants::TYPE_CLIENT,
@@ -109,23 +109,23 @@ class CompanyFixtures extends AbstractFixture
                 ->setCountry('GBR')
         );
 
-        $manager->persist($fullyPopulatedClient);
+        $this->repository->save($fullyPopulatedClient);
 
         if (!$this->hasReference(self::FULLY_POPULATED_CLIENT, Company::class)) {
             $this->addReference(self::FULLY_POPULATED_CLIENT, $fullyPopulatedClient);
         }
     }
 
-    private function createClientWithNoAddressFixture(ObjectManager $manager): void
+    private function createClientWithNoAddressFixture(): void
     {
-        $clientWithNoAddress = $this->companyFactory->create(
+        $clientWithNoAddress = $this->factory->create(
             name: 'Wired Technologies',
             ident: 'wired-technologies',
             type: CompanyConstants::TYPE_CLIENT,
             companyNumber: 78945612,
         );
 
-        $manager->persist($clientWithNoAddress);
+        $this->repository->save($clientWithNoAddress);
 
         if (!$this->hasReference(self::CLIENT_WITH_NO_ADDRESS, Company::class)) {
             $this->addReference(self::CLIENT_WITH_NO_ADDRESS, $clientWithNoAddress);

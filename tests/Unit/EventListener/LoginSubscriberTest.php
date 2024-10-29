@@ -57,7 +57,7 @@ class LoginSubscriberTest extends UnitTestCase
         $event = m::mock(LoginSuccessEvent::class);
         $event->expects()->getUser()->andReturn($user);
 
-        $this->userRepository->expects()->flush();
+        $this->userRepository->expects()->save();
 
         $this->assertNull($user->getLastLoggedIn());
         $this->fixture()->updateLastLoggedInOnUser($event);

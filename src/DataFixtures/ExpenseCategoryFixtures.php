@@ -6,6 +6,7 @@ namespace App\DataFixtures;
 
 use App\Entity\ExpenseCategory;
 use App\Factory\ExpenseCategoryFactoryInterface;
+use App\Repository\ExpenseCategoryRepositoryInterface;
 use App\Util\Html\HtmlCleaner;
 use Doctrine\Persistence\ObjectManager;
 
@@ -29,7 +30,8 @@ class ExpenseCategoryFixtures extends AbstractFixture
     public const string TRAINING_COURSES_NAME = 'Training courses';
 
     public function __construct(
-        private readonly ExpenseCategoryFactoryInterface $expenseCategoryFactory,
+        private readonly ExpenseCategoryFactoryInterface $factory,
+        private readonly ExpenseCategoryRepositoryInterface $repository,
     ) {
     }
 
@@ -38,19 +40,17 @@ class ExpenseCategoryFixtures extends AbstractFixture
      */
     public function load(ObjectManager $manager): void
     {
-        $this->createOfficePropertyAndEquipmentExpenseCategoryFixture($manager);
-        $this->createCarVanAndTravelExpensesExpenseCategoryFixture($manager);
-        $this->createClothingExpensesExpenseCategoryFixture($manager);
-        $this->createStaffExpensesExpenseCategoryFixture($manager);
-        $this->createResellingGoodsExpenseCategoryFixture($manager);
-        $this->createLegalAndFinancialCostsExpenseCategoryFixture($manager);
-        $this->createMarketingEntertainmentAndSubscriptionsExpenseCategoryFixture($manager);
-        $this->createTrainingCoursesExpenseCategoryFixture($manager);
-
-        $manager->flush();
+        $this->createOfficePropertyAndEquipmentExpenseCategoryFixture();
+        $this->createCarVanAndTravelExpensesExpenseCategoryFixture();
+        $this->createClothingExpensesExpenseCategoryFixture();
+        $this->createStaffExpensesExpenseCategoryFixture();
+        $this->createResellingGoodsExpenseCategoryFixture();
+        $this->createLegalAndFinancialCostsExpenseCategoryFixture();
+        $this->createMarketingEntertainmentAndSubscriptionsExpenseCategoryFixture();
+        $this->createTrainingCoursesExpenseCategoryFixture();
     }
 
-    private function createOfficePropertyAndEquipmentExpenseCategoryFixture(ObjectManager $manager): void
+    private function createOfficePropertyAndEquipmentExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <p>Claim items you'd normally use for less than 2 years as allowable expenses, for example:</p>
@@ -103,19 +103,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             </p>
         HTML;
 
-        $officePropertyAndEquipment = $this->expenseCategoryFactory->create(
+        $officePropertyAndEquipment = $this->factory->create(
             name: self::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($officePropertyAndEquipment);
+        $this->repository->save($officePropertyAndEquipment);
 
         if (!$this->hasReference(self::OFFICE_PROPERTY_AND_EQUIPMENT, ExpenseCategory::class)) {
             $this->addReference(self::OFFICE_PROPERTY_AND_EQUIPMENT, $officePropertyAndEquipment);
         }
     }
 
-    private function createCarVanAndTravelExpensesExpenseCategoryFixture(ObjectManager $manager): void
+    private function createCarVanAndTravelExpensesExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Car, van and travel expenses</h1>
@@ -150,19 +150,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             <p>For all other types of vehicle, claim them as allowable expenses.</p>
         HTML;
 
-        $carVanAndTravelExpenses = $this->expenseCategoryFactory->create(
+        $carVanAndTravelExpenses = $this->factory->create(
             name: self::CAR_VAN_AND_TRAVEL_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($carVanAndTravelExpenses);
+        $this->repository->save($carVanAndTravelExpenses);
 
         if (!$this->hasReference(self::CAR_VAN_AND_TRAVEL, ExpenseCategory::class)) {
             $this->addReference(self::CAR_VAN_AND_TRAVEL, $carVanAndTravelExpenses);
         }
     }
 
-    private function createClothingExpensesExpenseCategoryFixture(ObjectManager $manager): void
+    private function createClothingExpensesExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Clothing expenses</h1>
@@ -175,19 +175,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             <p>You cannot claim for everyday clothing (even if you wear it for work).</p>
         HTML;
 
-        $clothingExpenses = $this->expenseCategoryFactory->create(
+        $clothingExpenses = $this->factory->create(
             name: self::CLOTHING_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($clothingExpenses);
+        $this->repository->save($clothingExpenses);
 
         if (!$this->hasReference(self::CLOTHING_EXPENSES, ExpenseCategory::class)) {
             $this->addReference(self::CLOTHING_EXPENSES, $clothingExpenses);
         }
     }
 
-    private function createStaffExpensesExpenseCategoryFixture(ObjectManager $manager): void
+    private function createStaffExpensesExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <p>You can claim allowable business expenses for:</p>
@@ -204,19 +204,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             <p>You cannot claim for carers or domestic help, for example nannies.</p>
         HTML;
 
-        $staffExpenses = $this->expenseCategoryFactory->create(
+        $staffExpenses = $this->factory->create(
             name: self::STAFF_EXPENSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($staffExpenses);
+        $this->repository->save($staffExpenses);
 
         if (!$this->hasReference(self::STAFF_EXPENSES, ExpenseCategory::class)) {
             $this->addReference(self::STAFF_EXPENSES, $staffExpenses);
         }
     }
 
-    private function createResellingGoodsExpenseCategoryFixture(ObjectManager $manager): void
+    private function createResellingGoodsExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Reselling goods</h1>
@@ -233,19 +233,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             </ul>
         HTML;
 
-        $resellingGoods = $this->expenseCategoryFactory->create(
+        $resellingGoods = $this->factory->create(
             name: self::RESELLING_GOODS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($resellingGoods);
+        $this->repository->save($resellingGoods);
 
         if (!$this->hasReference(self::RESELLING_GOODS, ExpenseCategory::class)) {
             $this->addReference(self::RESELLING_GOODS, $resellingGoods);
         }
     }
 
-    private function createLegalAndFinancialCostsExpenseCategoryFixture(ObjectManager $manager): void
+    private function createLegalAndFinancialCostsExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Legal and financial costs</h1>
@@ -303,19 +303,19 @@ class ExpenseCategoryFixtures extends AbstractFixture
             </p>
         HTML;
 
-        $legalAndFinancialCosts = $this->expenseCategoryFactory->create(
+        $legalAndFinancialCosts = $this->factory->create(
             name: self::LEGAL_AND_FINANCIAL_COSTS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($legalAndFinancialCosts);
+        $this->repository->save($legalAndFinancialCosts);
 
         if (!$this->hasReference(self::LEGAL_AND_FINANCIAL_COSTS, ExpenseCategory::class)) {
             $this->addReference(self::LEGAL_AND_FINANCIAL_COSTS, $legalAndFinancialCosts);
         }
     }
 
-    private function createMarketingEntertainmentAndSubscriptionsExpenseCategoryFixture(ObjectManager $manager): void
+    private function createMarketingEntertainmentAndSubscriptionsExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Marketing, entertainment and subscriptions</h1>
@@ -345,12 +345,12 @@ class ExpenseCategoryFixtures extends AbstractFixture
             </ul>
         HTML;
 
-        $marketingEntertainmentAndSubscriptions = $this->expenseCategoryFactory->create(
+        $marketingEntertainmentAndSubscriptions = $this->factory->create(
             name: self::MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($marketingEntertainmentAndSubscriptions);
+        $this->repository->save($marketingEntertainmentAndSubscriptions);
 
         if (!$this->hasReference(self::MARKETING_ENTERTAINMENT_AND_SUBSCRIPTIONS, ExpenseCategory::class)) {
             $this->addReference(
@@ -360,7 +360,7 @@ class ExpenseCategoryFixtures extends AbstractFixture
         }
     }
 
-    private function createTrainingCoursesExpenseCategoryFixture(ObjectManager $manager): void
+    private function createTrainingCoursesExpenseCategoryFixture(): void
     {
         $description = <<<HTML
             <h1>Training courses</h1>
@@ -378,12 +378,12 @@ class ExpenseCategoryFixtures extends AbstractFixture
             </ul>
         HTML;
 
-        $trainingCourses = $this->expenseCategoryFactory->create(
+        $trainingCourses = $this->factory->create(
             name: self::TRAINING_COURSES_NAME,
             description: HtmlCleaner::minify($description),
         );
 
-        $manager->persist($trainingCourses);
+        $this->repository->save($trainingCourses);
 
         if (!$this->hasReference(self::TRAINING_COURSES, ExpenseCategory::class)) {
             $this->addReference(self::TRAINING_COURSES, $trainingCourses);

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\ExpenseCategoryRepository;
 use App\Validator\Constraint\Expenses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,15 +13,16 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ExpenseCategoryRepository::class)]
+#[ORM\Entity]
 class ExpenseCategory
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 255, maxMessage: 'Name cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Name cannot be empty')]
@@ -44,11 +45,6 @@ class ExpenseCategory
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getName(): string

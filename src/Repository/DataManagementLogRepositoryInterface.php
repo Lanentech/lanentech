@@ -5,14 +5,24 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\DataManagementLog;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method DataManagementLog|null find($id, $lockMode = null, $lockVersion = null)
- * @method DataManagementLog|null findOneBy(array $criteria, array $orderBy = null)
- * @method DataManagementLog[]    findAll()
- * @method DataManagementLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface DataManagementLogRepositoryInterface extends CanPersistAndFlushInterface
+interface DataManagementLogRepositoryInterface
 {
+    public function findOneById(int $id): ?DataManagementLog;
+
+    public function findOneByFilename(string $filename): ?DataManagementLog;
+
+    /**
+     * @return DataManagementLog[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return DataManagementLog[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(DataManagementLog $object): void;
+
+    public function save(?DataManagementLog $object = null): void;
 }

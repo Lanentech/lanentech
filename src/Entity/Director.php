@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Const\Director as DirectorConstants;
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\DirectorRepository;
 use App\Validator\Constraint\DateOfBirth;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: DirectorRepository::class)]
+#[ORM\Entity]
 class Director
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Choice(
         choices: DirectorConstants::TITLES,
@@ -71,11 +72,6 @@ class Director
     #[Assert\Type(type: Lanentech::class, message: 'The value {{ value }} is not a valid {{ type }}.')]
     #[ORM\ManyToOne(inversedBy: 'directors')]
     private ?Lanentech $company = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {

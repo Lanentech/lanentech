@@ -5,14 +5,22 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Invoice;
-use App\Repository\Traits\CanPersistAndFlushInterface;
 
-/**
- * @method Invoice|null find($id, $lockMode = null, $lockVersion = null)
- * @method Invoice|null findOneBy(array $criteria, array $orderBy = null)
- * @method Invoice[]    findAll()
- * @method Invoice[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-interface InvoiceRepositoryInterface extends CanPersistAndFlushInterface
+interface InvoiceRepositoryInterface
 {
+    public function findOneById(int $id): ?Invoice;
+
+    /**
+     * @return Invoice[]
+     */
+    public function findAll(): array;
+
+    /**
+     * @return Invoice[]
+     */
+    public function fetchBatch(int $offset, int $limit): array;
+
+    public function delete(Invoice $object): void;
+
+    public function save(?Invoice $object = null): void;
 }

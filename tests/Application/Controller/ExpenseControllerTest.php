@@ -63,9 +63,9 @@ class ExpenseControllerTest extends ApplicationTestCase
 
     public function testNewRouteWithSuccessfulFormSubmission(): void
     {
-        $expenseCategory = $this->expenseCategoryRepository->findOneBy([
-            'name' => ExpenseCategoryFixtures::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
-        ]);
+        $expenseCategory = $this->expenseCategoryRepository->findOneByName(
+            ExpenseCategoryFixtures::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
+        );
 
         if ($expenseCategory === null) {
             $this->fail('Expected ExpenseCategory to exist. Cannot submit form');
@@ -102,9 +102,9 @@ class ExpenseControllerTest extends ApplicationTestCase
 
     public function testNewRouteWhenFormSubmissionFailsValidation(): void
     {
-        $expenseCategory = $this->expenseCategoryRepository->findOneBy([
-            'name' => ExpenseCategoryFixtures::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
-        ]);
+        $expenseCategory = $this->expenseCategoryRepository->findOneByName(
+            ExpenseCategoryFixtures::OFFICE_PROPERTY_AND_EQUIPMENT_NAME,
+        );
 
         if ($expenseCategory === null) {
             $this->fail('Expected ExpenseCategory to exist. Cannot submit form');
@@ -184,7 +184,7 @@ class ExpenseControllerTest extends ApplicationTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $expense = $this->expenseRepository->find($expense->getId());
+        $expense = $this->expenseRepository->findOneById($expense->getId());
         $this->assertNotNull($expense);
         $this->assertEquals($expenseNewDescription, $expense->getDescription());
     }
@@ -202,7 +202,7 @@ class ExpenseControllerTest extends ApplicationTestCase
         ]);
 
         $this->assertResponseIsSuccessful();
-        $this->assertNull($this->expenseRepository->findOneBy(['description' => $expenseDescription]));
+        $this->assertNull($this->expenseRepository->findOneByDescription($expenseDescription));
     }
 
     public function testDeleteRouteWithInvalidCsrfToken(): void

@@ -5,26 +5,26 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Factory\AddressFactoryInterface;
+use App\Repository\AddressRepositoryInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class AddressFixtures extends AbstractFixture
 {
     public function __construct(
-        private readonly AddressFactoryInterface $addressFactory,
+        private readonly AddressFactoryInterface $factory,
+        private readonly AddressRepositoryInterface $repository,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $this->createFullyPopulatedAddressFixture($manager);
-        $this->createMinimallyPopulatedAddressFixture($manager);
-
-        $manager->flush();
+        $this->createFullyPopulatedAddressFixture();
+        $this->createMinimallyPopulatedAddressFixture();
     }
 
-    private function createFullyPopulatedAddressFixture(ObjectManager $manager): void
+    private function createFullyPopulatedAddressFixture(): void
     {
-        $fullyPopulatedAddress = $this->addressFactory->create(
+        $fullyPopulatedAddress = $this->factory->create(
             houseNumber: '3',
             street: 'Primrose Lane',
             townCity: 'Hadfield',
@@ -33,12 +33,12 @@ class AddressFixtures extends AbstractFixture
             houseName: 'Farmendale'
         );
 
-        $manager->persist($fullyPopulatedAddress);
+        $this->repository->save($fullyPopulatedAddress);
     }
 
-    private function createMinimallyPopulatedAddressFixture(ObjectManager $manager): void
+    private function createMinimallyPopulatedAddressFixture(): void
     {
-        $minimalPopulatedAddress = $this->addressFactory->create(
+        $minimalPopulatedAddress = $this->factory->create(
             houseNumber: '72',
             street: 'Playground Avenue',
             townCity: 'Macclesfield',
@@ -46,6 +46,6 @@ class AddressFixtures extends AbstractFixture
             country: 'GBR',
         );
 
-        $manager->persist($minimalPopulatedAddress);
+        $this->repository->save($minimalPopulatedAddress);
     }
 }

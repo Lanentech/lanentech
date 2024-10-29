@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Traits\GetId;
 use App\Entity\Traits\SetId;
-use App\Repository\RepeatCostRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: RepeatCostRepository::class)]
+#[ORM\Entity]
 class RepeatCost
 {
+    use GetId;
     use SetId;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\Length(max: 255, maxMessage: 'Description cannot be more than 255 characters')]
     #[Assert\NotBlank(message: 'Description cannot be empty')]
@@ -35,11 +36,6 @@ class RepeatCost
     #[Assert\NotNull(message: 'Date cannot be null')]
     #[ORM\Column(name: 'date', type: 'carbon_immutable', nullable: false)]
     private DateTimeImmutable $date;
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     public function getDescription(): string
     {

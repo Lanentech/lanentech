@@ -32,6 +32,6 @@ readonly class Version20240529135208 extends AbstractDataManagementFile
             $start += $batchSize;
         }
 
-        $this->userRepository->flush();
+        $this->userRepository->save();
     }
 }
