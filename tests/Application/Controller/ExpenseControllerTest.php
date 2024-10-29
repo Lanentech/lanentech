@@ -40,6 +40,16 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->expenseFactory = $expenseFactory;
     }
 
+    public function testNonAdminCannotAccessExpensesIndexPage(): void
+    {
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', '/admin/expense');
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
+    }
+
     public function testIndexRouteRendersPageSuccessfully(): void
     {
         $this->loginAsUserWithEmail(UserFixtures::ADMIN_USER_EMAIL);
@@ -51,6 +61,16 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->assertStringContainsString('Expenses', $this->client->getResponse()->getContent());
     }
 
+    public function testNonAdminCannotAccessExpensesGetNewPage(): void
+    {
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', '/admin/expense/new');
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
+    }
+
     public function testNewRouteRendersPageSuccessfully(): void
     {
         $this->loginAsUserWithEmail(UserFixtures::ADMIN_USER_EMAIL);
@@ -59,6 +79,17 @@ class ExpenseControllerTest extends ApplicationTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('Create New Expense', $this->client->getResponse()->getContent());
+    }
+
+    public function testNonAdminCannotAccessExpensesPostNewPage(): void
+    {
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->followRedirects();
+        $this->client->request('POST', '/admin/expense/new');
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
     }
 
     public function testNewRouteWithSuccessfulFormSubmission(): void
@@ -134,6 +165,18 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->assertStringContainsString('Description cannot be empty', $response->getContent());
     }
 
+    public function testNonAdminCannotAccessExpensesShowPage(): void
+    {
+        $expense = $this->seedExpense();
+
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', sprintf('/admin/expense/%s', $expense->getId()));
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
+    }
+
     public function testShowRouteSuccessfullyRendersPage(): void
     {
         $expense = $this->seedExpense(['comments' => 'This is a comment about this expense.']);
@@ -150,6 +193,18 @@ class ExpenseControllerTest extends ApplicationTestCase
         $this->assertStringContainsString('Expense', $responseContent);
         $this->assertStringContainsString('Comments', $responseContent);
         $this->assertStringContainsString('This is a comment about this expense.', $responseContent);
+    }
+
+    public function testNonAdminCannotAccessExpensesEditPage(): void
+    {
+        $expense = $this->seedExpense();
+
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('GET', sprintf('/admin/expense/%s/edit', $expense->getId()));
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
     }
 
     public function testEditRouteSuccessfullyRendersPage(): void
@@ -187,6 +242,20 @@ class ExpenseControllerTest extends ApplicationTestCase
         $expense = $this->expenseRepository->findOneById($expense->getId());
         $this->assertNotNull($expense);
         $this->assertEquals($expenseNewDescription, $expense->getDescription());
+    }
+
+    public function testNonAdminCannotAccessExpensesDeleteFunctionality(): void
+    {
+        $expense = $this->seedExpense();
+
+        $this->loginAsUserWithEmail(UserFixtures::NON_ADMIN_USER_EMAIL);
+
+        $this->client->request('POST', sprintf('/admin/expense/%s', $expense->getId()), [
+            '_token' => CsrfTokenManagerMock::APPLICATION_TEST_CSRF_TOKEN,
+        ]);
+
+        $this->assertResponseStatusCodeSame(403);
+        $this->assertStringContainsString('Access Denied', $this->client->getResponse()->getContent());
     }
 
     public function testDeleteRouteWithValidCsrfToken(): void
