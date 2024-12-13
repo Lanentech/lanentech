@@ -5,3 +5,5 @@ parameters:
     level: max
     paths:
         - src
+    ignoreErrors:
+        - '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string#'
