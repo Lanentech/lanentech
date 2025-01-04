@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataManagement;
 
-use App\Entity\User;
 use App\Repository\UserRepositoryInterface;
 
 readonly class Version20240529135208 extends AbstractDataManagementFile
@@ -24,7 +23,6 @@ readonly class Version20240529135208 extends AbstractDataManagementFile
                 break;
             }
 
-            /** @var User $user */
             foreach ($batch as $user) {
                 $user->setName(ucwords(str_replace(['_', '-'], ' ', (string) $user->getUsername())));
             }

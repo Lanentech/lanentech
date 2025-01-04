@@ -18,6 +18,14 @@ services:
       - '../src/Entity/'
       - '../src/Kernel.php'
 
+  App\DataManagement\:
+    resource: '../src/DataManagement/'
+    public: true
+
+  App\Repository\:
+    resource: '../src/Repository/'
+    public: true
+
   # --------------------------------------------------------------------------------------------------------------- #
   # Command Service Definitions
   # --------------------------------------------------------------------------------------------------------------- #
