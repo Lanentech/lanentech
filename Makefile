@@ -122,6 +122,7 @@ reload:
 	make manage-data;
 	make clear-cache;
 	make clear-cache env=test;
+	make build-assets;
 
 setup:
 	make docker-up;
@@ -133,3 +134,4 @@ setup:
 	make seed;
 	make seed env=test;
 	make manage-data;
+	make build-assets;
