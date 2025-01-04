@@ -9,6 +9,11 @@ use Carbon\CarbonImmutable;
 
 readonly class RepeatCostFactory extends BaseFactory implements RepeatCostFactoryInterface
 {
+    public function createBlankObject(): RepeatCost
+    {
+        return new RepeatCost();
+    }
+
     public function create(
         string $description,
         int $cost,

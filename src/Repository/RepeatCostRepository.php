@@ -34,6 +34,26 @@ readonly class RepeatCostRepository implements RepeatCostRepositoryInterface
         return null;
     }
 
+    public function findOneByDescription(string $description): ?RepeatCost
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('repeatCost')
+            ->from(RepeatCost::class, 'repeatCost')
+            ->where('repeatCost.description = :description')
+            ->setParameter('description', $description);
+
+        $result = $queryBuilder->getQuery()->getResult();
+
+        if (is_array($result) && count($result) > 0) {
+            if ($result[0] instanceof RepeatCost) {
+                return $result[0];
+            }
+        }
+
+        return null;
+    }
+
     public function findAll(): array
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();

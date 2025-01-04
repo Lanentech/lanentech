@@ -31,6 +31,13 @@ class RepeatCostFactoryTest extends UnitTestCase
         );
     }
 
+    public function testCreateBlankObject(): void
+    {
+        $result = $this->sut->createBlankObject();
+
+        $this->assertInstanceOf(RepeatCost::class, $result);
+    }
+
     public function testCreate(): void
     {
         $description = 'PhpStorm Annual License';

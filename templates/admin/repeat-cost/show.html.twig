@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ 'repeatCosts.show.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-7">
+        <h1 class="display-4 lh-1 mb-4 font-alt">{{ 'repeatCosts.show.header'|trans }}</h1>
+        <div class="col-6">
+            <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" title="{{ 'repeatCosts.go_back'|trans }}">
+                <span class="d-flex align-items-center">
+                    <i class="bi-box-arrow-left me-2"></i>
+                    <a href="{{ path('app_repeat_cost_index') }}">
+                        <span class="medium text-white logout">{{ 'repeatCosts.go_back'|trans }}</span>
+                    </a>
+                </span>
+            </button>
+        </div>
+
+        <div class="mt-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="mb-2">
+                        <strong>Description:</strong>
+                        <a href="{{ path('app_repeat_cost_show', {'id': repeatCost.id}) }}">{{ repeatCost.description }}</a>
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Cost:</strong>
+                        {% set price = repeatCost.cost|price %}
+                        {% set regex = '/[+-]?([0-9]*[.])?[0-9]+/' %}
+                        {{ price matches regex ? ('&pound;' ~ price|number_format(2))|raw : price }}
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Date:</strong> {{ repeatCost.date|date("d/m/Y H:i:s") }}
+                    </div>
+
+                    <div class="mt-4 d-flex">
+                        <a href="{{ path('app_repeat_cost_edit', {'id': repeatCost.id}) }}" class="btn btn-primary rounded-pill me-2">
+                            <i class="bi-pencil-fill me-1"></i> {{ 'crud.general.edit'|trans }}
+                        </a>
+                        {{ include('admin/repeat-cost/_delete_form.html.twig') }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -8,10 +8,11 @@ use App\Entity\Expense;
 use App\Entity\ExpenseCategory;
 use Carbon\CarbonImmutable;
 
-interface ExpenseFactoryInterface
+/**
+ * @extends CanCreateBlankObjectInterface<Expense>
+ */
+interface ExpenseFactoryInterface extends CanCreateBlankObjectInterface
 {
-    public function createBlankObject(): Expense;
-
     public function create(
         string $description,
         ExpenseCategory $expenseCategory,

@@ -24,7 +24,7 @@ class RepeatCostFixtures extends AbstractFixture
 
     private function createFullyPopulatedRepeatCostFixture(): void
     {
-        if (!$date = CarbonImmutable::create(year: 2023, month: 2, day: 28)) {
+        if (!$date = CarbonImmutable::create(year: 2023, month: 2, day: 27)) {
             $this->throwExceptionWhenDateCannotBeCreated('Date');
         }
 

@@ -1,0 +1,19 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ 'repeatCosts.create.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-7">
+        <h1 class="display-4 lh-1 mb-4 font-alt">{{ 'repeatCosts.create.header'|trans }}</h1>
+        <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" title="{{ 'repeatCosts.go_back'|trans }}">
+            <span class="d-flex align-items-center">
+                <i class="bi-box-arrow-left me-2"></i>
+                <a href="{{ path('app_repeat_cost_index') }}">
+                    <span class="medium text-white logout">{{ 'repeatCosts.go_back'|trans }}</span>
+                </a>
+            </span>
+        </button>
+
+        {{ include('admin/repeat-cost/_form.html.twig') }}
+    </div>
+{% endblock %}

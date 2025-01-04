@@ -15,6 +15,8 @@ interface RepeatCostRepositoryInterface
      */
     public function findAll(): array;
 
+    public function findOneByDescription(string $description): ?RepeatCost;
+
     /**
      * @return RepeatCost[]
      */

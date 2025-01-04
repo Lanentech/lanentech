@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ 'repeatCosts.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-7">
+        <h1 class="display-4 lh-1 mb-4 font-alt">{{ 'repeatCosts.header.index'|trans }}</h1>
+        <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" title="{{ 'crud.general.create'|trans }}">
+            <span class="d-flex align-items-center">
+                <i class="bi-plus-circle-fill me-2"></i>
+                <a href="{{ path('app_repeat_cost_new') }}">
+                    <span class="medium text-white logout">{{ 'crud.general.create'|trans }}</span>
+                </a>
+            </span>
+        </button>
+
+        <div class="table-responsive">
+            {% set tableHeaders = [
+                'repeatCosts.table.header.description'|trans,
+                'repeatCosts.table.header.cost'|trans,
+                'repeatCosts.table.header.date'|trans,
+                'repeatCosts.table.header.actions'|trans
+            ] %}
+
+            <table class="table mt-4 table-bordered table-hover">
+                <thead class="table-primary">
+                <tr>
+                    {% for header in tableHeaders %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for repeatCost in repeatCosts %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_repeat_cost_show', {'id': repeatCost.id}) }}">
+                                {{ repeatCost.description }}
+                            </a>
+                        </td>
+                        <td>
+                            {% set price = repeatCost.cost|price %}
+                            {% set regex = '/[+-]?([0-9]*[.])?[0-9]+/' %}
+                            {{ price matches regex ? ('&pound;' ~ price|number_format(2))|raw : price }}
+                        </td>
+                        <td>{{ repeatCost.date|date("d/m/Y H:i:s") }}</td>
+                        <td>
+                            <button class="btn btn-primary rounded-pill mb-1 w-100" title="{{ 'crud.general.edit'|trans }}">
+                                <span class="d-flex align-items-center justify-content-center">
+                                    <i class="bi-pencil-fill me-2"></i>
+                                    <a href="{{ path('app_repeat_cost_edit', {'id': repeatCost.id}) }}">
+                                        <span class="medium text-white logout">{{ 'crud.general.edit'|trans }}</span>
+                                    </a>
+                                </span>
+                            </button>
+                            {{ include('admin/repeat-cost/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="{{ tableHeaders|length }}">{{ 'repeatCosts.table.no_results'|trans }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

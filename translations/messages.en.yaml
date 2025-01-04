@@ -5,6 +5,7 @@ admin:
     list:
       pre-text: 'As an admin, you can:'
     manage_expenses: Manage Expenses
+    manage_repeat_costs: Manage Repeat Costs
     title: Admin Dashboard
 
 business:
@@ -85,6 +86,29 @@ index:
 
 navigation:
   menu: Menu
+
+repeatCosts:
+  create:
+    header: Create New Repeat Cost
+    title: Create New Repeat Cost
+  edit:
+    header: Edit Repeat Cost
+    title: Edit Repeat Cost
+  go_back:
+    Back to all Repeat Costs
+  header:
+    index: Repeat Costs
+  show:
+    header: Repeat Cost
+    title: Repeat Cost
+  table:
+    header:
+      actions: Actions
+      cost: Cost
+      date: Date
+      description: Description
+    no_results: No repeat costs found.
+  title: Repeat Costs
 
 security:
   access_denied: 'Access Denied: You do not have permission to access this page.'

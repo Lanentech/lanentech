@@ -7,7 +7,10 @@ namespace App\Factory;
 use App\Entity\RepeatCost;
 use Carbon\CarbonImmutable;
 
-interface RepeatCostFactoryInterface
+/**
+ * @extends CanCreateBlankObjectInterface<RepeatCost>
+ */
+interface RepeatCostFactoryInterface extends CanCreateBlankObjectInterface
 {
     public function create(
         string $description,
