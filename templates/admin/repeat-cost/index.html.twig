@@ -43,7 +43,7 @@
                             {% set regex = '/[+-]?([0-9]*[.])?[0-9]+/' %}
                             {{ price matches regex ? ('&pound;' ~ price|number_format(2))|raw : price }}
                         </td>
-                        <td>{{ repeatCost.date|date("d/m/Y H:i:s") }}</td>
+                        <td>{{ repeatCost.date|date("d/m/Y") }}</td>
                         <td>
                             <button class="btn btn-primary rounded-pill mb-1 w-100" title="{{ 'crud.general.edit'|trans }}">
                                 <span class="d-flex align-items-center justify-content-center">

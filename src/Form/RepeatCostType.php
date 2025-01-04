@@ -22,7 +22,7 @@ class RepeatCostType extends AbstractType
             ->add('date', DateType::class, [
                 'input'  => 'datetime_immutable',
                 'widget' => 'single_text',
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd/MM/yyyy',
                 'html5' => false,
             ]);
     }
